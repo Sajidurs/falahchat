@@ -1,0 +1,7 @@
+{
+  "name": "falahchat-root",
+  "private": true,
+  "scripts": {
+    "build": "npm --prefix web run build"
+  }
+}
