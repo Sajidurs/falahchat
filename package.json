@@ -2,6 +2,7 @@
   "name": "falahchat-root",
   "private": true,
   "scripts": {
-    "build": "npm --prefix web run build"
+    "postinstall": "cd web && npm install",
+    "build": "cd web && npm install && npm run build"
   }
 }
