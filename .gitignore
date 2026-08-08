@@ -1,0 +1,10 @@
+node_modules
+web/node_modules
+dist
+web/dist
+.vercel
+web/.vercel
+.DS_Store
+*.local
+.image-slots.state.json
+.thumbnail

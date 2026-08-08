@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;1,14..32,400;1,14..32,500;1,14..32,600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin:0; padding:0; background:#070B0A; }
+  body { font-family:'Inter',system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  * { box-sizing:border-box; }
+  a { color:#1DD98B; text-decoration:none; }
+  a:hover { color:#7DEFC2; }
+  button { font-family:inherit; cursor:pointer; }
+  ::selection { background:#1DD98B; color:#04100B; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(10px);} to { opacity:1; transform:translateY(0);} }
+  @keyframes blink { 0%,60%,100% { opacity:.25; } 30% { opacity:1; } }
+  @keyframes floaty { 0%,100% { transform:translateY(0);} 50% { transform:translateY(-10px);} }
+  @keyframes dashFlow { to { stroke-dashoffset:-220; } }
+  @keyframes pulseRing { 0% { transform:scale(1); opacity:.55; } 100% { transform:scale(2.2); opacity:0; } }
+  @keyframes driftA { 0%,100% { transform:translateY(0);} 50% { transform:translateY(-9px);} }
+  @keyframes driftB { 0%,100% { transform:translateY(0);} 50% { transform:translateY(8px);} }
+  @keyframes ghostTrail { 0% { opacity:.5; transform:translateY(0) scale(1);} 100% { opacity:0; transform:translateY(-34px) scale(1.05);} }
+  @keyframes railSlide { from { transform:translateX(0);} to { transform:translateX(calc(-50% - 11px));} }
+  @keyframes logoSlide { from { transform:translateX(calc(-50% - 38px));} to { transform:translateX(0);} }
+  @keyframes cardIn { 0% { opacity:0; transform:translateY(26px) scale(.985); filter:blur(6px);} 100% { opacity:1; transform:translateY(0) scale(1); filter:blur(0);} }
+  @keyframes floatCard { 0%,100% { transform:translateY(0);} 50% { transform:translateY(-9px);} }
+  @keyframes popGlow { 0%,100% { box-shadow:0 0 0 1px rgba(29,217,139,.55), 0 0 26px -6px rgba(29,217,139,.45), 0 40px 90px -50px rgba(0,0,0,.95);} 50% { box-shadow:0 0 0 1px rgba(29,217,139,.95), 0 0 54px -4px rgba(29,217,139,.8), 0 40px 90px -50px rgba(0,0,0,.95);} }
+  @keyframes popSweep { from { transform:translateX(-120%);} to { transform:translateX(220%);} }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation:none !important; transition:none !important; } }
+  img, svg { max-width:100%; }
+  [data-r~="navpill"]::-webkit-scrollbar, #ind-rail::-webkit-scrollbar { display:none; }
+  @media (max-width: 1080px) {
+    [data-r~="two"], [data-r~="split2"], [data-r~="flow"] { grid-template-columns:1fr !important; gap:40px !important; }
+    [data-r~="g4"] { grid-template-columns:repeat(2, 1fr) !important; }
+    [data-r~="divider"], [data-r~="flowline"] { display:none !important; }
+    [data-r~="howcol"] { padding-right:0 !important; padding-bottom:56px !important; }
+    [data-r~="footer3"] { grid-template-columns:1fr 1fr !important; gap:40px !important; }
+    [data-r~="bigwrap"] { grid-column:1 / -1 !important; justify-self:start !important; text-align:left !important; }
+    [data-r~="bigtext"] { white-space:normal !important; }
+    [data-r~="footcol2"] { margin-top:0 !important; }
+    [data-r~="pricing3"] { grid-template-columns:1fr 1fr !important; }
+  }
+  @media (max-width: 820px) {
+    [data-r~="pad"] { padding-left:18px !important; padding-right:18px !important; }
+    [data-r~="indpad"] { padding-left:18px !important; }
+    [data-r~="indpad"] [data-r~="indinner"] { padding-right:18px !important; }
+    [data-r~="g3"], [data-r~="g2"], [data-r~="g4"] { grid-template-columns:1fr !important; }
+    [data-r~="pricing3"] { grid-template-columns:1fr !important; max-width:430px !important; }
+    [data-r~="daycol"] { flex-direction:column !important; align-items:stretch !important; }
+    [data-r~="dayimg"] { order:2; align-self:center !important; max-width:76% !important; max-height:400px !important; }
+    [data-r~="leadrow"] { grid-template-columns:1fr auto !important; gap:10px 14px !important; }
+    [data-r~="leadsnip"] { grid-column:1 / -1 !important; white-space:normal !important; }
+    [data-r~="night"] { aspect-ratio:3 / 4 !important; }
+    [data-r~="nightcards"] { width:84% !important; top:5% !important; left:6% !important; }
+    [data-r~="nightfoot"] { padding:20px !important; gap:18px !important; }
+    [data-r~="bubble"] { max-width:86% !important; }
+    [data-r~="padcard"] { padding:30px 22px !important; }
+    [data-r~="hdr"] { padding:14px 14px 0 !important; }
+    [data-r~="navpill"] { display:none !important; }
+    [data-r~="mbar"] { display:flex !important; }
+    [style*="railSlide"] > div { flex-basis:44vw !important; }
+    [style*="logoSlide"] { gap:46px !important; }
+  }
+  @media (max-width: 520px) {
+    [data-r~="bigtext"] { font-size:34px !important; }
+    [data-r~="msheet"] nav > button { font-size:22px !important; padding:16px 0 !important; }
+    [data-r~="wafloat"] { right:16px !important; bottom:16px !important; padding:8px !important; }
+    [data-r~="wacopy"] { display:none !important; }
+    [data-r~="footer3"] { grid-template-columns:1fr !important; }
+    [data-r~="stack"] { flex-direction:column !important; align-items:stretch !important; }
+    [data-r~="stack"] > * { justify-content:center; text-align:center; }
+    #ind-rail [data-ind="card"] { width:210px !important; }
+  }
+</style>
+<script src="./image-slot.js"></script>
+</helmet>
+
+<div style="minHeight:100vh; background:#070B0A; color:#F0F5F3; position:relative; overflow:hidden">
+
+  <sc-if value="{{ gridBackdrop }}" hint-placeholder-val="{{ true }}">
+    <div style="position:absolute; inset:0; pointerEvents:none; backgroundImage:linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px); backgroundSize:96px 96px; maskImage:radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%)"></div>
+  </sc-if>
+  <div style="position:absolute; top:-260px; left:50%; width:900px; height:620px; transform:translateX(-50%); background:radial-gradient(ellipse at center, rgba(29,217,139,.10), transparent 65%); filter:blur(20px); pointerEvents:none"></div>
+  <div style="position:absolute; inset:0; pointerEvents:none; backgroundImage:repeating-linear-gradient(90deg, rgba(29,217,139,.075) 0 2px, transparent 2px 22px); maskImage:radial-gradient(ellipse 55% 45% at 50% 8%, #000, transparent 72%); WebkitMaskImage:radial-gradient(ellipse 55% 45% at 50% 8%, #000, transparent 72%); opacity:.9"></div>
+
+  <header data-r="hdr" style="fontFamily:'Inter',system-ui,sans-serif; position:sticky; top:0; zIndex:50; padding:22px 24px 0; display:flex; justifyContent:center; pointerEvents:none">
+    <div data-r="navpill" style="pointerEvents:auto; display:flex; alignItems:center; gap:5px; padding:6px 8px; borderRadius:999px; background:rgba(13,19,16,.66); backdropFilter:blur(20px); WebkitBackdropFilter:blur(20px); border:1px solid rgba(255,255,255,.08); boxShadow:0 20px 46px -20px rgba(0,0,0,.95)">
+      <button onClick="{{ goHome }}" style="background:none; border:none; padding:9px 15px; borderRadius:999px; fontSize:14px; fontWeight:600; color:#93A29C; position:relative; whiteSpace:nowrap" style-hover="color:#F0F5F3">
+        <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}"><span style="position:absolute; inset:0; borderRadius:999px; background:rgba(255,255,255,.075); border:1px solid rgba(255,255,255,.07)"></span></sc-if>
+        <span style="position:relative">Home</span>
+      </button>
+      <span style="width:3px; height:3px; borderRadius:999px; background:#3B4A44; flexShrink:0"></span>
+      <button onClick="{{ goAgentWhatsApp }}" style="background:none; border:none; padding:9px 15px; borderRadius:999px; fontSize:14px; fontWeight:600; color:#93A29C; position:relative; whiteSpace:nowrap" style-hover="color:#F0F5F3">
+        <sc-if value="{{ isAgent }}" hint-placeholder-val="{{ false }}"><span style="position:absolute; inset:0; borderRadius:999px; background:rgba(255,255,255,.075); border:1px solid rgba(255,255,255,.07)"></span></sc-if>
+        <span style="position:relative">Agents</span>
+      </button>
+      <span style="width:3px; height:3px; borderRadius:999px; background:#3B4A44; flexShrink:0"></span>
+      <button onClick="{{ goServices }}" style="background:none; border:none; padding:9px 15px; borderRadius:999px; fontSize:14px; fontWeight:600; color:#93A29C; position:relative; whiteSpace:nowrap" style-hover="color:#F0F5F3">
+        <sc-if value="{{ isServices }}" hint-placeholder-val="{{ false }}"><span style="position:absolute; inset:0; borderRadius:999px; background:rgba(255,255,255,.075); border:1px solid rgba(255,255,255,.07)"></span></sc-if>
+        <span style="position:relative">Pricing</span>
+      </button>
+      <button onClick="{{ goHome }}" aria-label="Falah Chat home" style="flexShrink:0; width:44px; height:44px; margin:0 4px; borderRadius:999px; background:#0A100D; border:1px solid rgba(29,217,139,.28); display:flex; alignItems:center; justifyContent:center; boxShadow:0 0 24px -6px rgba(29,217,139,.45)">
+        <img src="uploads/falah-chat-logo-transparent.webp" alt="" style="height:22px; width:auto; display:block" />
+      </button>
+      <button onClick="{{ goContact }}" style="background:none; border:none; padding:9px 15px; borderRadius:999px; fontSize:14px; fontWeight:600; color:#93A29C; position:relative; whiteSpace:nowrap" style-hover="color:#F0F5F3">
+        <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}"><span style="position:absolute; inset:0; borderRadius:999px; background:rgba(255,255,255,.075); border:1px solid rgba(255,255,255,.07)"></span></sc-if>
+        <span style="position:relative">Contact</span>
+      </button>
+      <span style="width:3px; height:3px; borderRadius:999px; background:#3B4A44; flexShrink:0"></span>
+      <a href="{{ calendly }}" target="_blank" rel="noopener" style="background:#1DD98B; color:#04100B; fontWeight:700; fontSize:14px; padding:10px 18px; borderRadius:999px; whiteSpace:nowrap" style-hover="background:#46E8A6; color:#04100B">Book a call</a>
+    </div>
+
+    <div data-r="mbar" style="display:none; pointerEvents:auto; width:100%; alignItems:center; justifyContent:space-between; gap:12px">
+      <button onClick="{{ goHome }}" aria-label="Falah Chat home" style="display:flex; alignItems:center; gap:10px; padding:7px 14px 7px 8px; borderRadius:999px; background:rgba(13,19,16,.72); backdropFilter:blur(20px); WebkitBackdropFilter:blur(20px); border:1px solid rgba(255,255,255,.08)">
+        <span style="width:34px; height:34px; borderRadius:999px; background:#0A100D; border:1px solid rgba(29,217,139,.28); display:flex; alignItems:center; justifyContent:center; flexShrink:0">
+          <img src="uploads/falah-chat-logo-transparent.webp" alt="" style="height:17px; width:auto; display:block" />
+        </span>
+        <span style="fontSize:14.5px; fontWeight:700; letterSpacing:-0.01em; color:#F0F5F3">Falah Chat</span>
+      </button>
+      <button onClick="{{ toggleMenu }}" aria-label="Menu" aria-expanded="{{ menuOpen }}" style="flexShrink:0; width:46px; height:46px; borderRadius:999px; background:rgba(13,19,16,.72); backdropFilter:blur(20px); WebkitBackdropFilter:blur(20px); border:1px solid rgba(255,255,255,.08); display:flex; flexDirection:column; alignItems:center; justifyContent:center; gap:5px">
+        <sc-if value="{{ menuClosed }}" hint-placeholder-val="{{ true }}">
+          <span style="width:17px; height:1.6px; borderRadius:2px; background:#E6EFEA; display:block"></span>
+          <span style="width:11px; height:1.6px; borderRadius:2px; background:#1DD98B; display:block; alignSelf:center; marginLeft:-6px"></span>
+        </sc-if>
+        <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+          <span style="fontSize:19px; lineHeight:1; color:#1DD98B">✕</span>
+        </sc-if>
+      </button>
+    </div>
+  </header>
+
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div data-r="msheet" style="position:fixed; inset:0; zIndex:49; background:rgba(5,9,8,.94); backdropFilter:blur(22px); WebkitBackdropFilter:blur(22px); display:flex; flexDirection:column; justifyContent:space-between; padding:96px 22px 30px; animation:fadeUp .28s ease both">
+      <nav style="display:flex; flexDirection:column">
+        <button onClick="{{ goHome }}" style="textAlign:left; background:none; border:none; borderBottom:1px solid rgba(255,255,255,.07); padding:20px 0; fontFamily:'Inter',system-ui,sans-serif; fontSize:26px; fontWeight:600; letterSpacing:-0.02em; color:#F0F5F3">Home</button>
+        <button onClick="{{ goAgentWhatsApp }}" style="textAlign:left; background:none; border:none; borderBottom:1px solid rgba(255,255,255,.07); padding:20px 0; fontFamily:'Inter',system-ui,sans-serif; fontSize:26px; fontWeight:600; letterSpacing:-0.02em; color:#F0F5F3">WhatsApp Agent</button>
+        <button onClick="{{ goAgentInstagram }}" style="textAlign:left; background:none; border:none; borderBottom:1px solid rgba(255,255,255,.07); padding:20px 0; fontFamily:'Inter',system-ui,sans-serif; fontSize:26px; fontWeight:600; letterSpacing:-0.02em; color:#F0F5F3">Instagram Agent</button>
+        <button onClick="{{ goAgentMessenger }}" style="textAlign:left; background:none; border:none; borderBottom:1px solid rgba(255,255,255,.07); padding:20px 0; fontFamily:'Inter',system-ui,sans-serif; fontSize:26px; fontWeight:600; letterSpacing:-0.02em; color:#F0F5F3">Messenger Agent</button>
+        <button onClick="{{ goAgentWebsite }}" style="textAlign:left; background:none; border:none; borderBottom:1px solid rgba(255,255,255,.07); padding:20px 0; fontFamily:'Inter',system-ui,sans-serif; fontSize:26px; fontWeight:600; letterSpacing:-0.02em; color:#F0F5F3">Website Chatbot</button>
+        <button onClick="{{ goServices }}" style="textAlign:left; background:none; border:none; borderBottom:1px solid rgba(255,255,255,.07); padding:20px 0; fontFamily:'Inter',system-ui,sans-serif; fontSize:26px; fontWeight:600; letterSpacing:-0.02em; color:#F0F5F3">Pricing</button>
+        <button onClick="{{ goContact }}" style="textAlign:left; background:none; border:none; padding:20px 0; fontFamily:'Inter',system-ui,sans-serif; fontSize:26px; fontWeight:600; letterSpacing:-0.02em; color:#F0F5F3">Contact</button>
+      </nav>
+      <div style="display:flex; flexDirection:column; gap:16px">
+        <a href="{{ calendly }}" target="_blank" rel="noopener" onClick="{{ closeMenu }}" style="display:flex; alignItems:center; justifyContent:center; gap:10px; background:#1DD98B; color:#04100B; fontWeight:700; fontSize:16px; padding:17px 24px; borderRadius:999px">Book a free call <span style="fontSize:17px">→</span></a>
+        <div style="display:flex; alignItems:center; justifyContent:space-between; fontSize:11px; fontWeight:700; letterSpacing:0.16em; textTransform:uppercase; color:#5B6A64">
+          <span>Dhaka · Dubai</span>
+          <a href="tel:+8801947441287" style="letterSpacing:0.04em; textTransform:none; fontSize:13px; fontWeight:500; whiteSpace:nowrap">+880 1947-441287</a>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <main>
+<section data-r="pad" style="fontFamily:'Inter',system-ui,sans-serif; position:relative; padding:78px 24px 0">
+      <div style="maxWidth:880px; margin:0 auto; textAlign:center; position:relative; zIndex:3">
+        <div style="display:inline-flex; alignItems:center; gap:9px; padding:7px 15px 7px 11px; borderRadius:999px; border:1px solid rgba(29,217,139,.22); background:rgba(29,217,139,.06)">
+          <span style="width:6px; height:6px; borderRadius:999px; background:#1DD98B"></span>
+          <span style="fontSize:12px; fontWeight:700; letterSpacing:0.14em; textTransform:uppercase; color:#1DD98B">AI chat agents for business</span>
+        </div>
+        <h1 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:clamp(42px, 5.8vw, 80px); lineHeight:1.0; letterSpacing:-0.038em; fontWeight:700; margin:28px 0 0; color:#F0F5F3; textWrap:balance">
+          Turn Missed Messages
+          <span style="display:block; fontStyle:italic; fontWeight:500; color:#1DD98B">Into Real Sales</span>
+        </h1>
+        <p style="margin:24px auto 0; maxWidth:540px; fontSize:16.5px; lineHeight:1.65; color:#93A29C; textWrap:pretty">
+          AI agents for WhatsApp, Instagram, Messenger and your own website — answering in seconds, in Bangla, English or Banglish, and handing every qualified lead to your team.
+        </p>
+        <div style="marginTop:32px; display:flex; justifyContent:center">
+          <a href="{{ calendly }}" target="_blank" rel="noopener" style="display:inline-flex; alignItems:center; gap:10px; background:#1DD98B; color:#04100B; fontWeight:700; fontSize:15.5px; padding:15px 28px; borderRadius:999px; boxShadow:0 18px 40px -16px rgba(29,217,139,.65)" style-hover="background:#46E8A6; color:#04100B">Book a free consultation <span style="fontSize:17px">→</span></a>
+        </div>
+      </div>
+
+      <div style="position:relative; marginTop:74px">
+        <div style="overflow:hidden; maskImage:linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%); WebkitMaskImage:linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%)">
+          <div style="display:flex; width:max-content; gap:22px; animation:railSlide 62s linear infinite">
+            <div style="flex:0 0 calc((100vw - 200px) / 6); display:flex; flexDirection:column; gap:14px" aria-hidden="false">
+              <div style="aspectRatio:1 / 1; borderRadius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.07); background:#080C0A"><img src="uploads/Replies%20in%20seconds.png" alt="Replies in seconds" style="width:100%; height:100%; objectFit:cover; display:block" /></div>
+              <div style="textAlign:center; fontSize:13px; fontWeight:600; letterSpacing:0.06em; textTransform:uppercase; color:#84938D">Replies in seconds</div>
+            </div>
+            <div style="flex:0 0 calc((100vw - 200px) / 6); display:flex; flexDirection:column; gap:14px" aria-hidden="false">
+              <div style="aspectRatio:1 / 1; borderRadius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.07); background:#080C0A"><img src="uploads/Always%20on%2C%20247.png" alt="Always on, 24/7" style="width:100%; height:100%; objectFit:cover; display:block" /></div>
+              <div style="textAlign:center; fontSize:13px; fontWeight:600; letterSpacing:0.06em; textTransform:uppercase; color:#84938D">Always on, 24/7</div>
+            </div>
+            <div style="flex:0 0 calc((100vw - 200px) / 6); display:flex; flexDirection:column; gap:14px" aria-hidden="false">
+              <div style="aspectRatio:1 / 1; borderRadius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.07); background:#080C0A"><img src="uploads/Speaks%20every%20language.png" alt="Speaks every language" style="width:100%; height:100%; objectFit:cover; display:block" /></div>
+              <div style="textAlign:center; fontSize:13px; fontWeight:600; letterSpacing:0.06em; textTransform:uppercase; color:#84938D">Speaks every language</div>
+            </div>
+            <div style="flex:0 0 calc((100vw - 200px) / 6); display:flex; flexDirection:column; gap:14px" aria-hidden="false">
+              <div style="aspectRatio:1 / 1; borderRadius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.07); background:#080C0A"><img src="uploads/All%20channels%2C%20one%20inbox.png" alt="All channels, one inbox" style="width:100%; height:100%; objectFit:cover; display:block" /></div>
+              <div style="textAlign:center; fontSize:13px; fontWeight:600; letterSpacing:0.06em; textTransform:uppercase; color:#84938D">All channels, one inbox</div>
+            </div>
+            <div style="flex:0 0 calc((100vw - 200px) / 6); display:flex; flexDirection:column; gap:14px" aria-hidden="false">
+              <div style="aspectRatio:1 / 1; borderRadius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.07); background:#080C0A"><img src="uploads/Every%20lead%20captured.png" alt="Every lead captured" style="width:100%; height:100%; objectFit:cover; display:block" /></div>
+              <div style="textAlign:center; fontSize:13px; fontWeight:600; letterSpacing:0.06em; textTransform:uppercase; color:#84938D">Every lead captured</div>
+            </div>
+            <div style="flex:0 0 calc((100vw - 200px) / 6); display:flex; flexDirection:column; gap:14px" aria-hidden="false">
+              <div style="aspectRatio:1 / 1; borderRadius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.07); background:#080C0A"><img src="uploads/Grows%20your%20sales.png" alt="Grows your sales" style="width:100%; height:100%; objectFit:cover; display:block" /></div>
+              <div style="textAlign:center; fontSize:13px; fontWeight:600; letterSpacing:0.06em; textTransform:uppercase; color:#84938D">Grows your sales</div>
+            </div>
+            <div style="flex:0 0 calc((100vw - 200px) / 6); display:flex; flexDirection:column; gap:14px" aria-hidden="false">
+              <div style="aspectRatio:1 / 1; borderRadius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.07); background:#080C0A"><img src="uploads/Works%20while%20you%20rest.png" alt="Works while you rest" style="width:100%; height:100%; objectFit:cover; display:block" /></div>
+              <div style="textAlign:center; fontSize:13px; fontWeight:600; letterSpacing:0.06em; textTransform:uppercase; color:#84938D">Works while you rest</div>
+            </div>
+            <div style="flex:0 0 calc((100vw - 200px) / 6); display:flex; flexDirection:column; gap:14px" aria-hidden="true">
+              <div style="aspectRatio:1 / 1; borderRadius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.07); background:#080C0A"><img src="uploads/Replies%20in%20seconds.png" alt="" style="width:100%; height:100%; objectFit:cover; display:block" /></div>
+              <div style="textAlign:center; fontSize:13px; fontWeight:600; letterSpacing:0.06em; textTransform:uppercase; color:#84938D">Replies in seconds</div>
+            </div>
+            <div style="flex:0 0 calc((100vw - 200px) / 6); display:flex; flexDirection:column; gap:14px" aria-hidden="true">
+              <div style="aspectRatio:1 / 1; borderRadius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.07); background:#080C0A"><img src="uploads/Always%20on%2C%20247.png" alt="" style="width:100%; height:100%; objectFit:cover; display:block" /></div>
+              <div style="textAlign:center; fontSize:13px; fontWeight:600; letterSpacing:0.06em; textTransform:uppercase; color:#84938D">Always on, 24/7</div>
+            </div>
+            <div style="flex:0 0 calc((100vw - 200px) / 6); display:flex; flexDirection:column; gap:14px" aria-hidden="true">
+              <div style="aspectRatio:1 / 1; borderRadius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.07); background:#080C0A"><img src="uploads/Speaks%20every%20language.png" alt="" style="width:100%; height:100%; objectFit:cover; display:block" /></div>
+              <div style="textAlign:center; fontSize:13px; fontWeight:600; letterSpacing:0.06em; textTransform:uppercase; color:#84938D">Speaks every language</div>
+            </div>
+            <div style="flex:0 0 calc((100vw - 200px) / 6); display:flex; flexDirection:column; gap:14px" aria-hidden="true">
+              <div style="aspectRatio:1 / 1; borderRadius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.07); background:#080C0A"><img src="uploads/All%20channels%2C%20one%20inbox.png" alt="" style="width:100%; height:100%; objectFit:cover; display:block" /></div>
+              <div style="textAlign:center; fontSize:13px; fontWeight:600; letterSpacing:0.06em; textTransform:uppercase; color:#84938D">All channels, one inbox</div>
+            </div>
+            <div style="flex:0 0 calc((100vw - 200px) / 6); display:flex; flexDirection:column; gap:14px" aria-hidden="true">
+              <div style="aspectRatio:1 / 1; borderRadius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.07); background:#080C0A"><img src="uploads/Every%20lead%20captured.png" alt="" style="width:100%; height:100%; objectFit:cover; display:block" /></div>
+              <div style="textAlign:center; fontSize:13px; fontWeight:600; letterSpacing:0.06em; textTransform:uppercase; color:#84938D">Every lead captured</div>
+            </div>
+            <div style="flex:0 0 calc((100vw - 200px) / 6); display:flex; flexDirection:column; gap:14px" aria-hidden="true">
+              <div style="aspectRatio:1 / 1; borderRadius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.07); background:#080C0A"><img src="uploads/Grows%20your%20sales.png" alt="" style="width:100%; height:100%; objectFit:cover; display:block" /></div>
+              <div style="textAlign:center; fontSize:13px; fontWeight:600; letterSpacing:0.06em; textTransform:uppercase; color:#84938D">Grows your sales</div>
+            </div>
+            <div style="flex:0 0 calc((100vw - 200px) / 6); display:flex; flexDirection:column; gap:14px" aria-hidden="true">
+              <div style="aspectRatio:1 / 1; borderRadius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.07); background:#080C0A"><img src="uploads/Works%20while%20you%20rest.png" alt="" style="width:100%; height:100%; objectFit:cover; display:block" /></div>
+              <div style="textAlign:center; fontSize:13px; fontWeight:600; letterSpacing:0.06em; textTransform:uppercase; color:#84938D">Works while you rest</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="position:relative; zIndex:4; marginTop:64px; borderTop:1px solid rgba(255,255,255,.06); background:#070B0A">
+        <div style="padding:26px 0; overflow:hidden; maskImage:linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%); WebkitMaskImage:linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%)">
+          <div style="display:flex; alignItems:center; width:max-content; gap:76px; animation:logoSlide 44s linear infinite">
+          <img src="uploads/Logo%201.png" alt="Client logo" aria-hidden="false" style="flexShrink:0; height:30px; width:auto; display:block; objectFit:contain; opacity:.42; filter:grayscale(1) brightness(1.9)" style-hover="opacity:.9" />
+          <img src="uploads/Logo%202.png" alt="Client logo" aria-hidden="false" style="flexShrink:0; height:30px; width:auto; display:block; objectFit:contain; opacity:.42; filter:grayscale(1) brightness(1.9)" style-hover="opacity:.9" />
+          <img src="uploads/Logo%203.png" alt="Client logo" aria-hidden="false" style="flexShrink:0; height:30px; width:auto; display:block; objectFit:contain; opacity:.42; filter:grayscale(1) brightness(1.9)" style-hover="opacity:.9" />
+          <img src="uploads/Logo%204.png" alt="Client logo" aria-hidden="false" style="flexShrink:0; height:30px; width:auto; display:block; objectFit:contain; opacity:.42; filter:grayscale(1) brightness(1.9)" style-hover="opacity:.9" />
+          <img src="uploads/Logo%205.png" alt="Client logo" aria-hidden="false" style="flexShrink:0; height:30px; width:auto; display:block; objectFit:contain; opacity:.42; filter:grayscale(1) brightness(1.9)" style-hover="opacity:.9" />
+          <img src="uploads/Logo%206.png" alt="Client logo" aria-hidden="false" style="flexShrink:0; height:30px; width:auto; display:block; objectFit:contain; opacity:.42; filter:grayscale(1) brightness(1.9)" style-hover="opacity:.9" />
+          <img src="uploads/Logo%208.png" alt="Client logo" aria-hidden="false" style="flexShrink:0; height:30px; width:auto; display:block; objectFit:contain; opacity:.42; filter:grayscale(1) brightness(1.9)" style-hover="opacity:.9" />
+          <img src="uploads/2-2.png" alt="Client logo" aria-hidden="false" style="flexShrink:0; height:30px; width:auto; display:block; objectFit:contain; opacity:.42; filter:grayscale(1) brightness(1.9)" style-hover="opacity:.9" />
+          <img src="uploads/Logo%201.png" alt="" aria-hidden="true" style="flexShrink:0; height:30px; width:auto; display:block; objectFit:contain; opacity:.42; filter:grayscale(1) brightness(1.9)" style-hover="opacity:.9" />
+          <img src="uploads/Logo%202.png" alt="" aria-hidden="true" style="flexShrink:0; height:30px; width:auto; display:block; objectFit:contain; opacity:.42; filter:grayscale(1) brightness(1.9)" style-hover="opacity:.9" />
+          <img src="uploads/Logo%203.png" alt="" aria-hidden="true" style="flexShrink:0; height:30px; width:auto; display:block; objectFit:contain; opacity:.42; filter:grayscale(1) brightness(1.9)" style-hover="opacity:.9" />
+          <img src="uploads/Logo%204.png" alt="" aria-hidden="true" style="flexShrink:0; height:30px; width:auto; display:block; objectFit:contain; opacity:.42; filter:grayscale(1) brightness(1.9)" style-hover="opacity:.9" />
+          <img src="uploads/Logo%205.png" alt="" aria-hidden="true" style="flexShrink:0; height:30px; width:auto; display:block; objectFit:contain; opacity:.42; filter:grayscale(1) brightness(1.9)" style-hover="opacity:.9" />
+          <img src="uploads/Logo%206.png" alt="" aria-hidden="true" style="flexShrink:0; height:30px; width:auto; display:block; objectFit:contain; opacity:.42; filter:grayscale(1) brightness(1.9)" style-hover="opacity:.9" />
+          <img src="uploads/Logo%208.png" alt="" aria-hidden="true" style="flexShrink:0; height:30px; width:auto; display:block; objectFit:contain; opacity:.42; filter:grayscale(1) brightness(1.9)" style-hover="opacity:.9" />
+          <img src="uploads/2-2.png" alt="" aria-hidden="true" style="flexShrink:0; height:30px; width:auto; display:block; objectFit:contain; opacity:.42; filter:grayscale(1) brightness(1.9)" style-hover="opacity:.9" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="position:relative; overflow:hidden; background:#070B0A; borderTop:1px solid rgba(255,255,255,.06)">
+      <div style="position:absolute; top:0; right:0; width:52%; height:100%; background:radial-gradient(ellipse 70% 60% at 70% 55%, rgba(29,217,139,.10), transparent 70%); pointerEvents:none"></div>
+      <div style="position:absolute; inset:0; pointerEvents:none; backgroundImage:repeating-linear-gradient(90deg, rgba(29,217,139,.075) 0 2px, transparent 2px 22px); maskImage:radial-gradient(ellipse 40% 55% at 78% 45%, #000, transparent 74%); WebkitMaskImage:radial-gradient(ellipse 40% 55% at 78% 45%, #000, transparent 74%)"></div>
+      <div data-r="pad" style="maxWidth:1240px; margin:0 auto; padding:96px 28px 56px; position:relative; zIndex:1">
+        <div style="maxWidth:720px">
+          <div style="fontSize:12.5px; fontWeight:700; letterSpacing:0.16em; textTransform:uppercase; color:#1DD98B">Two kinds of day</div>
+          <h2 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:clamp(30px, 3.2vw, 46px); lineHeight:1.1; letterSpacing:-0.03em; fontWeight:700; margin:20px 0 0; color:#67766F">Same enquiries. <span style="color:#F0F5F3">One owner is drowning,</span> <span style="color:#1DD98B">the other is closing.</span></h2>
+        </div>
+
+        <div data-r="split2" style="marginTop:44px; display:grid; gridTemplateColumns:1fr 1px 1fr; gap:0; alignItems:end">
+          <div data-r="daycol" style="display:flex; alignItems:flex-end; gap:10px; paddingRight:6px">
+            <div style="flex:1; minWidth:196px; display:flex; flexDirection:column; gap:14px; paddingBottom:24px">
+            <div style="alignSelf:flex-start; whiteSpace:nowrap; fontSize:11.5px; fontWeight:700; letterSpacing:0.16em; textTransform:uppercase; color:#67766F; border:1px solid rgba(255,255,255,.12); borderRadius:999px; padding:7px 14px">Without Falah Chat</div>
+            <div style="display:flex; flexDirection:column; gap:12px">
+              <div style="border:1px solid rgba(255,255,255,.09); borderRadius:16px; background:rgba(13,19,16,.88); backdropFilter:blur(6px); padding:14px 15px; transform:rotate(-2.2deg); animation:driftA 9s ease-in-out infinite">
+                <div style="display:flex; alignItems:center; justifyContent:space-between; gap:10px">
+                  <span style="fontSize:12px; fontWeight:700; color:#B9C7C1">WhatsApp</span>
+                  <span style="fontSize:11px; fontWeight:700; color:#04140D; background:#76857F; borderRadius:999px; padding:3px 8px">14</span>
+                </div>
+                <div style="fontSize:12.5px; color:#84938D; marginTop:7px; lineHeight:1.5">“Vai, price koto? Ekhono keu reply dey nai.”</div>
+                <div style="fontSize:10.5px; color:#5A6862; marginTop:8px">11:42 PM</div>
+              </div>
+              <div style="border:1px solid rgba(255,255,255,.09); borderRadius:16px; background:rgba(13,19,16,.88); backdropFilter:blur(6px); padding:14px 15px; transform:rotate(1.6deg); marginLeft:26px; animation:driftB 10s ease-in-out infinite">
+                <div style="fontSize:12px; fontWeight:700; color:#B9C7C1">Missed call</div>
+                <div style="fontSize:12.5px; color:#84938D; marginTop:6px">Customer · 9:47 AM</div>
+              </div>
+              <div style="border:1px solid rgba(255,255,255,.09); borderRadius:16px; background:rgba(13,19,16,.88); backdropFilter:blur(6px); padding:14px 15px; transform:rotate(-1.2deg); animation:driftA 11s ease-in-out infinite">
+                <div style="display:flex; alignItems:center; justifyContent:space-between; gap:10px">
+                  <span style="fontSize:12px; fontWeight:700; color:#B9C7C1">Instagram requests</span>
+                  <span style="fontSize:11px; fontWeight:700; color:#04140D; background:#76857F; borderRadius:999px; padding:3px 8px">6</span>
+                </div>
+                <div style="fontSize:12.5px; color:#84938D; marginTop:7px; lineHeight:1.5">“Can you send your price list?”</div>
+              </div>
+              <div style="border:1px dashed rgba(255,255,255,.16); borderRadius:14px; padding:12px 14px; transform:rotate(2.4deg); marginLeft:40px; fontSize:12.5px; color:#76857F">Follow up with Amina — later</div>
+            </div>
+              <div style="fontSize:13.5px; lineHeight:1.7; color:#76857F; maxWidth:262px">Answering at midnight, retyping the same prices, leads written on the back of an invoice book.</div>
+            </div>
+            <img data-r="dayimg" src="uploads/Unhappy%20person.png" alt="Business owner overwhelmed by unanswered messages on his phone" style="height:auto; maxHeight:560px; maxWidth:52%; objectFit:contain; objectPosition:bottom; filter:grayscale(1) brightness(.72) contrast(1.05); maskImage:linear-gradient(to bottom, #000 52%, transparent 90%); WebkitMaskImage:linear-gradient(to bottom, #000 52%, transparent 90%); pointerEvents:none">
+          </div>
+
+          <div data-r="divider" style="position:relative; alignSelf:stretch; background:linear-gradient(to bottom, transparent, rgba(255,255,255,.10) 30%, rgba(29,217,139,.35) 55%, transparent 92%)">
+            <div style="position:absolute; top:52%; left:50%; transform:translate(-50%,-50%); width:9px; height:9px; borderRadius:999px; background:#1DD98B; boxShadow:0 0 0 5px rgba(29,217,139,.12)"></div>
+          </div>
+
+          <div data-r="daycol" style="display:flex; alignItems:flex-end; gap:10px; paddingLeft:6px">
+            <img data-r="dayimg" src="uploads/Happy%20person.png" alt="Business owner calmly running his shop with Falah Chat handling replies" style="height:auto; maxHeight:520px; maxWidth:48%; objectFit:contain; objectPosition:bottom; filter:saturate(1.02) brightness(.95); maskImage:linear-gradient(to bottom, #000 38%, transparent 84%); WebkitMaskImage:linear-gradient(to bottom, #000 38%, transparent 84%); pointerEvents:none">
+            <div style="flex:1; minWidth:210px; display:flex; flexDirection:column; gap:14px; paddingBottom:24px">
+            <div style="alignSelf:flex-end; whiteSpace:nowrap; fontSize:11.5px; fontWeight:700; letterSpacing:0.16em; textTransform:uppercase; color:#1DD98B; border:1px solid rgba(29,217,139,.32); background:rgba(29,217,139,.08); borderRadius:999px; padding:7px 14px">With Falah Chat</div>
+            <div style="display:flex; flexDirection:column; gap:12px">
+              <div style="display:flex; alignItems:center; gap:12px; border:1px solid rgba(29,217,139,.28); borderRadius:16px; background:rgba(11,20,16,.92); backdropFilter:blur(6px); padding:14px 16px; animation:driftA 8s ease-in-out infinite">
+                <span style="width:26px; height:26px; borderRadius:999px; background:#1DD98B; color:#04140D; display:flex; alignItems:center; justifyContent:center; fontSize:13px; fontWeight:700; flexShrink:0">✓</span>
+                <div>
+                  <div style="fontFamily:'Inter',system-ui,sans-serif; fontSize:17px; fontWeight:700; color:#F0F5F3">Replied in 6 seconds</div>
+                  <div style="fontSize:11.5px; color:#84938D">Every message, day or night</div>
+                </div>
+              </div>
+              <div style="display:flex; alignItems:center; gap:12px; border:1px solid rgba(255,255,255,.10); borderRadius:16px; background:rgba(12,18,15,.92); backdropFilter:blur(6px); padding:14px 16px; marginRight:24px; animation:driftB 9.5s ease-in-out infinite">
+                <span style="width:26px; height:26px; borderRadius:999px; background:rgba(29,217,139,.14); border:1px solid rgba(29,217,139,.3); color:#1DD98B; display:flex; alignItems:center; justifyContent:center; fontSize:13px; fontWeight:700; flexShrink:0">✓</span>
+                <div>
+                  <div style="fontFamily:'Inter',system-ui,sans-serif; fontSize:17px; fontWeight:700; color:#F0F5F3">Zero missed enquiries</div>
+                  <div style="fontSize:11.5px; color:#84938D">Nothing sits in a request folder</div>
+                </div>
+              </div>
+              <div style="display:flex; alignItems:center; gap:12px; border:1px solid rgba(255,255,255,.10); borderRadius:16px; background:rgba(12,18,15,.92); backdropFilter:blur(6px); padding:14px 16px; animation:driftA 10.5s ease-in-out infinite">
+                <span style="width:26px; height:26px; borderRadius:999px; background:rgba(29,217,139,.14); border:1px solid rgba(29,217,139,.3); color:#1DD98B; display:flex; alignItems:center; justifyContent:center; fontSize:13px; fontWeight:700; flexShrink:0">✓</span>
+                <div>
+                  <div style="fontFamily:'Inter',system-ui,sans-serif; fontSize:17px; fontWeight:700; color:#F0F5F3">Every lead written down</div>
+                  <div style="fontSize:11.5px; color:#84938D">Name, number, branch, next step</div>
+                </div>
+              </div>
+              <div style="display:flex; alignItems:center; gap:12px; border:1px solid rgba(255,255,255,.10); borderRadius:16px; background:rgba(12,18,15,.92); backdropFilter:blur(6px); padding:14px 16px; marginRight:36px; animation:driftB 11.5s ease-in-out infinite">
+                <span style="width:26px; height:26px; borderRadius:999px; background:rgba(29,217,139,.14); border:1px solid rgba(29,217,139,.3); color:#1DD98B; display:flex; alignItems:center; justifyContent:center; fontSize:13px; fontWeight:700; flexShrink:0">✓</span>
+                <div>
+                  <div style="fontFamily:'Inter',system-ui,sans-serif; fontSize:17px; fontWeight:700; color:#F0F5F3">He steps in only to close</div>
+                  <div style="fontSize:11.5px; color:#84938D">Handoff the moment it's worth it</div>
+                </div>
+              </div>
+            </div>
+              <div style="alignSelf:flex-end; textAlign:right; fontSize:13.5px; lineHeight:1.7; color:#84938D; maxWidth:268px">Same shop, same phone number — the agent answers first and he only picks up the ready buyers.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="position:absolute; left:0; right:0; bottom:0; height:200px; background:linear-gradient(to bottom, transparent, #070B0A 72%); pointerEvents:none; zIndex:0"></div>
+    </section>
+
+    <section style="borderTop:1px solid rgba(255,255,255,.06); background:#0A0F0D; position:relative; overflow:hidden">
+      <div style="position:absolute; top:50%; left:50%; width:760px; height:520px; transform:translate(-50%,-50%); background:radial-gradient(ellipse at center, rgba(29,217,139,.09), transparent 70%); filter:blur(10px); pointerEvents:none"></div>
+      <div style="position:absolute; inset:0; pointerEvents:none; backgroundImage:repeating-linear-gradient(90deg, rgba(29,217,139,.075) 0 2px, transparent 2px 22px); maskImage:radial-gradient(ellipse 45% 60% at 18% 50%, #000, transparent 76%); WebkitMaskImage:radial-gradient(ellipse 45% 60% at 18% 50%, #000, transparent 76%)"></div>
+      <div data-r="pad" style="maxWidth:1240px; margin:0 auto; padding:96px 28px; position:relative">
+        <div style="maxWidth:680px">
+          <div style="fontSize:12.5px; fontWeight:700; letterSpacing:0.16em; textTransform:uppercase; color:#1DD98B">One dashboard</div>
+          <h2 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:clamp(30px, 3.2vw, 46px); lineHeight:1.1; letterSpacing:-0.03em; fontWeight:700; margin:20px 0 0; color:#67766F">Four channels in, <span style="color:#F0F5F3">one place to work</span> your leads.</h2>
+          <p style="fontSize:15.5px; lineHeight:1.7; color:#84938D; marginTop:20px; textWrap:pretty">WhatsApp, Instagram, Messenger and the chatbot on your own website all feed the same inbox. Every conversation the agent handles becomes a lead with a name, a number and a next step — no tab switching, nothing lost in a DM request folder.</p>
+        </div>
+
+        <div data-r="flow" style="marginTop:56px; display:grid; gridTemplateColumns:236px 132px 1fr; gap:0; alignItems:center">
+          <div style="display:flex; flexDirection:column; gap:16px">
+            <sc-for list="{{ channels }}" as="c" hint-placeholder-count="4">
+              <button onClick="{{ c.pick }}" style="textAlign:left; display:flex; alignItems:center; gap:13px; border:1px solid rgba(255,255,255,.10); borderRadius:18px; padding:15px 16px; background:#0F1613; boxShadow:0 20px 40px -28px rgba(0,0,0,.9); animation:{{ c.drift }}; opacity:{{ c.dim }}" style-hover="border:1px solid #1DD98B">
+                <span style="width:38px; height:38px; borderRadius:12px; background:rgba(29,217,139,.12); border:1px solid rgba(29,217,139,.28); color:#1DD98B; display:flex; alignItems:center; justifyContent:center; fontFamily:'Inter',system-ui,sans-serif; fontSize:13px; fontWeight:700; letterSpacing:0.02em">{{ c.mark }}</span>
+                <span style="display:flex; flexDirection:column; gap:3px">
+                  <span style="fontSize:14.5px; fontWeight:700; color:#F0F5F3">{{ c.key }}</span>
+                  <span style="fontSize:11.5px; color:#76857F">{{ c.note }}</span>
+                </span>
+              </button>
+            </sc-for>
+          </div>
+
+          <div data-r="flowline" style="position:relative; height:318px" aria-hidden="true">
+            <svg viewBox="0 0 132 318" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; overflow:visible">
+              <path d="M0 35 C58 35 60 159 124 159" fill="none" stroke="rgba(29,217,139,.30)" stroke-width="1.2"></path>
+              <path d="M0 118 C58 118 60 159 124 159" fill="none" stroke="rgba(29,217,139,.30)" stroke-width="1.2"></path>
+              <path d="M0 200 C58 200 60 159 124 159" fill="none" stroke="rgba(29,217,139,.30)" stroke-width="1.2"></path>
+              <path d="M0 283 C58 283 60 159 124 159" fill="none" stroke="rgba(29,217,139,.30)" stroke-width="1.2"></path>
+              <path d="M0 35 C58 35 60 159 124 159" fill="none" stroke="#1DD98B" stroke-width="1.6" stroke-dasharray="5 260" style="animation:dashFlow 3.4s linear infinite"></path>
+              <path d="M0 118 C58 118 60 159 124 159" fill="none" stroke="#1DD98B" stroke-width="1.6" stroke-dasharray="5 260" style="animation:dashFlow 3.4s .85s linear infinite"></path>
+              <path d="M0 200 C58 200 60 159 124 159" fill="none" stroke="#1DD98B" stroke-width="1.6" stroke-dasharray="5 260" style="animation:dashFlow 3.4s 1.7s linear infinite"></path>
+              <path d="M0 283 C58 283 60 159 124 159" fill="none" stroke="#1DD98B" stroke-width="1.6" stroke-dasharray="5 260" style="animation:dashFlow 3.4s 2.55s linear infinite"></path>
+            </svg>
+            <div style="position:absolute; top:50%; right:0; transform:translate(50%,-50%); width:16px; height:16px; borderRadius:999px; background:#1DD98B; boxShadow:0 0 0 5px rgba(29,217,139,.14)"></div>
+            <div style="position:absolute; top:50%; right:0; transform:translate(50%,-50%); width:16px; height:16px; borderRadius:999px; border:1px solid #1DD98B; animation:pulseRing 2.4s ease-out infinite"></div>
+          </div>
+
+          <div style="border:1px solid rgba(255,255,255,.10); borderRadius:24px; background:#0D1310; overflow:hidden; boxShadow:0 50px 110px -50px rgba(0,0,0,.95)">
+            <div style="display:flex; alignItems:center; justifyContent:space-between; gap:20px; padding:18px 22px; borderBottom:1px solid rgba(255,255,255,.07); background:rgba(255,255,255,.022); flexWrap:wrap">
+              <div style="display:flex; alignItems:baseline; gap:10px">
+                <span style="fontFamily:'Inter',system-ui,sans-serif; fontSize:16px; fontWeight:700; color:#F0F5F3">Lead inbox</span>
+                <span style="fontSize:12px; color:#76857F">{{ leadCount }}</span>
+              </div>
+              <div style="display:flex; gap:8px; flexWrap:wrap">
+                <sc-for list="{{ inboxTabs }}" as="t" hint-placeholder-count="4">
+                  <button onClick="{{ t.pick }}" style="border:1px solid rgba(255,255,255,.12); borderRadius:999px; padding:7px 14px; fontSize:12px; fontWeight:700; whiteSpace:nowrap; background:{{ t.bg }}; color:{{ t.fg }}; borderColor:{{ t.border }}" style-hover="border:1px solid #1DD98B">{{ t.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display:flex; flexDirection:column">
+              <sc-for list="{{ leads }}" as="l" hint-placeholder-count="5">
+                <div data-r="leadrow" style="display:grid; gridTemplateColumns:190px 1fr auto; gap:18px; alignItems:center; padding:16px 22px; borderBottom:1px solid rgba(255,255,255,.05); animation:fadeUp .45s ease both; animationDelay:{{ l.delay }}" style-hover="background:rgba(29,217,139,.04)">
+                  <div style="display:flex; alignItems:center; gap:11px; minWidth:0">
+                    <span style="width:30px; height:30px; borderRadius:9px; background:rgba(29,217,139,.1); border:1px solid rgba(29,217,139,.22); color:#1DD98B; display:flex; alignItems:center; justifyContent:center; fontSize:11px; fontWeight:700; flexShrink:0">{{ l.mark }}</span>
+                    <span style="display:flex; flexDirection:column; gap:2px; minWidth:0">
+                      <span dir="auto" style="fontSize:14px; fontWeight:700; color:#F0F5F3; whiteSpace:nowrap; overflow:hidden; textOverflow:ellipsis">{{ l.name }}</span>
+                      <span style="fontSize:11.5px; color:#76857F">{{ l.channel }} · {{ l.lang }}</span>
+                    </span>
+                  </div>
+                  <div dir="auto" data-r="leadsnip" style="fontSize:13.5px; color:#93A29C; whiteSpace:nowrap; overflow:hidden; textOverflow:ellipsis">{{ l.snippet }}</div>
+                  <sc-if value="{{ l.hot }}" hint-placeholder-val="{{ true }}">
+                    <span style="fontSize:11.5px; fontWeight:700; color:#04140D; background:#1DD98B; padding:6px 12px; borderRadius:999px; whiteSpace:nowrap">{{ l.status }}</span>
+                  </sc-if>
+                  <sc-if value="{{ l.cool }}" hint-placeholder-val="{{ false }}">
+                    <span style="fontSize:11.5px; fontWeight:700; color:#84938D; border:1px solid rgba(255,255,255,.14); padding:5px 12px; borderRadius:999px; whiteSpace:nowrap">{{ l.status }}</span>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex; alignItems:center; justifyContent:space-between; gap:16px; padding:16px 22px; background:rgba(255,255,255,.022); flexWrap:wrap">
+              <div style="fontSize:12.5px; color:#76857F">Export as CSV · assign to a teammate · take over any chat</div>
+              <button onClick="{{ goServices }}" style="background:none; border:1px solid rgba(255,255,255,.14); color:#F0F5F3; borderRadius:999px; padding:9px 18px; fontSize:12.5px; fontWeight:700" style-hover="border:1px solid #1DD98B">Included from Growth →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section data-r="pad" style="maxWidth:1240px; margin:0 auto; padding:96px 28px">
+      <div data-r="two" style="display:grid; gridTemplateColumns:1.1fr .9fr; gap:56px; alignItems:end">
+        <h2 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:clamp(32px, 3.6vw, 52px); lineHeight:1.08; letterSpacing:-0.03em; fontWeight:700; margin:0; color:#67766F">
+          Every <span style="color:#F0F5F3">slow reply</span> is a customer <span style="color:#1DD98B">buying elsewhere.</span>
+        </h2>
+        <p style="fontSize:15.5px; lineHeight:1.7; color:#84938D; margin:0; textWrap:pretty">Most businesses answer DMs when someone is free. Buyers don't wait that long — they message three shops and buy from whoever answers first.</p>
+      </div>
+      <div data-r="g3" style="marginTop:52px; display:grid; gridTemplateColumns:repeat(3, 1fr); gap:20px">
+        <div style="border:1px solid rgba(255,255,255,.08); borderRadius:22px; padding:34px 30px; background:#0D1310; minHeight:250px; display:flex; flexDirection:column" style-hover="border:1px solid rgba(29,217,139,.35)">
+          <div style="fontFamily:'Inter',system-ui,sans-serif; fontSize:15px; fontWeight:700; color:#1DD98B">01.</div>
+          <h3 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:21px; fontWeight:600; lineHeight:1.25; letterSpacing:-0.02em; color:#F0F5F3; margin:22px 0 0">Messages pile up after hours.</h3>
+          <p style="fontSize:14.5px; lineHeight:1.65; color:#84938D; margin:14px 0 0">Your busiest enquiry hours are 9pm to 1am. Nobody is on the phone then, so the sale cools overnight.</p>
+        </div>
+        <div style="border:1px solid rgba(255,255,255,.08); borderRadius:22px; padding:34px 30px; background:#0D1310; minHeight:250px; display:flex; flexDirection:column" style-hover="border:1px solid rgba(29,217,139,.35)">
+          <div style="fontFamily:'Inter',system-ui,sans-serif; fontSize:15px; fontWeight:700; color:#1DD98B">02.</div>
+          <h3 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:21px; fontWeight:600; lineHeight:1.25; letterSpacing:-0.02em; color:#F0F5F3; margin:22px 0 0">The same ten questions, forever.</h3>
+          <p style="fontSize:14.5px; lineHeight:1.65; color:#84938D; margin:14px 0 0">Price, delivery, location, stock. Your team retypes the answers all day instead of closing orders.</p>
+        </div>
+        <div style="border:1px solid rgba(255,255,255,.08); borderRadius:22px; padding:34px 30px; background:#0D1310; minHeight:250px; display:flex; flexDirection:column" style-hover="border:1px solid rgba(29,217,139,.35)">
+          <div style="fontFamily:'Inter',system-ui,sans-serif; fontSize:15px; fontWeight:700; color:#1DD98B">03.</div>
+          <h3 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:21px; fontWeight:600; lineHeight:1.25; letterSpacing:-0.02em; color:#F0F5F3; margin:22px 0 0">Leads live in three inboxes.</h3>
+          <p style="fontSize:14.5px; lineHeight:1.65; color:#84938D; margin:14px 0 0">WhatsApp here, Instagram there, Messenger and your website form somewhere else. No list, no follow-up, no record.</p>
+        </div>
+      </div>
+    </section>
+
+    <section style="position:relative; borderTop:1px solid rgba(255,255,255,.06); borderBottom:1px solid rgba(255,255,255,.06); background:#0A0F0D; overflow:hidden">
+      <div style="position:absolute; top:34%; left:50%; width:1100px; height:640px; transform:translateX(-50%); background:radial-gradient(ellipse at center, rgba(29,217,139,.14), transparent 66%); filter:blur(24px); pointerEvents:none"></div>
+      <div data-r="pad" style="maxWidth:1240px; margin:0 auto; padding:96px 28px; position:relative">
+
+        <div style="maxWidth:760px; margin:0 auto; textAlign:center">
+          <div style="fontSize:12.5px; fontWeight:700; letterSpacing:0.16em; textTransform:uppercase; color:#1DD98B">What we build</div>
+          <h2 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:clamp(30px, 3.4vw, 48px); lineHeight:1.1; letterSpacing:-0.035em; fontWeight:700; margin:20px 0 0; color:#F0F5F3; textWrap:balance">One agent that works your inbox <span style="color:#1DD98B">like your best salesperson.</span></h2>
+          <p style="fontSize:16px; lineHeight:1.7; color:#84938D; margin:18px auto 0; maxWidth:560px; textWrap:pretty">Trained on your products, prices and policies — not a generic bot. Every conversation lands in one dashboard.</p>
+        </div>
+
+        <div style="marginTop:56px; borderRadius:22px; padding:1px; background:linear-gradient(135deg, rgba(29,217,139,.65), rgba(29,217,139,.10) 38%, rgba(255,255,255,.06) 62%, rgba(29,217,139,.45)); boxShadow:0 70px 150px -60px rgba(0,0,0,.98), 0 0 90px -40px rgba(29,217,139,.45)">
+          <div style="borderRadius:21px; padding:14px; background:#070B0A">
+            <div style="borderRadius:13px; overflow:hidden; border:1px solid rgba(255,255,255,.08)">
+              <div style="display:flex; alignItems:center; gap:14px; padding:12px 16px; background:#0D1310; borderBottom:1px solid rgba(255,255,255,.07)">
+                <div style="display:flex; gap:8px; flexShrink:0">
+                  <span style="width:12px; height:12px; borderRadius:999px; background:#FF5F57"></span>
+                  <span style="width:12px; height:12px; borderRadius:999px; background:#FEBC2E"></span>
+                  <span style="width:12px; height:12px; borderRadius:999px; background:#28C840"></span>
+                </div>
+                <div style="flex:1; display:flex; justifyContent:center">
+                  <span style="display:inline-flex; alignItems:center; gap:8px; padding:5px 16px; borderRadius:8px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06); fontSize:11.5px; color:#5F6E68; letterSpacing:0.02em">app.falah.chat</span>
+                </div>
+                <div style="width:56px; flexShrink:0"></div>
+              </div>
+              <img src="uploads/Screenshot_3-8-2026_14480_claude.ai.jpeg" alt="The Falah Chat lead inbox dashboard" style="display:block; width:100%; height:auto" />
+            </div>
+          </div>
+        </div>
+
+        <div data-r="g4" style="marginTop:44px; display:grid; gridTemplateColumns:repeat(4, 1fr); gap:18px">
+          <div style="border:1px solid rgba(255,255,255,.08); borderRadius:20px; padding:26px; background:#101714">
+            <div style="fontFamily:'Inter',system-ui,sans-serif; fontSize:16px; fontWeight:700; color:#F0F5F3">Replies in seconds, always</div>
+            <p style="fontSize:13.5px; lineHeight:1.6; color:#84938D; margin:10px 0 0">Every message gets a real answer within moments, day or night, weekends included.</p>
+          </div>
+          <div style="border:1px solid rgba(255,255,255,.08); borderRadius:20px; padding:26px; background:#101714">
+            <div style="fontFamily:'Inter',system-ui,sans-serif; fontSize:16px; fontWeight:700; color:#F0F5F3">Speaks your customer's language</div>
+            <p style="fontSize:13.5px; lineHeight:1.6; color:#84938D; margin:10px 0 0">Bangla, English, Arabic, Hindi and Banglish — it replies the way the customer wrote.</p>
+          </div>
+          <div style="border:1px solid rgba(255,255,255,.08); borderRadius:20px; padding:26px; background:#101714">
+            <div style="fontFamily:'Inter',system-ui,sans-serif; fontSize:16px; fontWeight:700; color:#F0F5F3">Hands over to a human</div>
+            <p style="fontSize:13.5px; lineHeight:1.6; color:#84938D; margin:10px 0 0">Your team can take over any chat with one tap, and the agent steps back politely.</p>
+          </div>
+          <div style="border:1px solid rgba(29,217,139,.35); borderRadius:20px; padding:26px; background:rgba(29,217,139,.07)">
+            <div style="fontFamily:'Inter',system-ui,sans-serif; fontSize:16px; fontWeight:700; color:#1DD98B">Captures every lead</div>
+            <p style="fontSize:13.5px; lineHeight:1.6; color:#8FCBB2; margin:10px 0 0">Name, number, branch and intent saved to a dashboard you can export as CSV.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section data-r="pad" style="maxWidth:1240px; margin:0 auto; padding:96px 28px">
+      <div style="display:flex; justifyContent:space-between; alignItems:end; gap:40px; flexWrap:wrap">
+        <h2 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:clamp(28px, 3vw, 42px); lineHeight:1.12; letterSpacing:-0.03em; fontWeight:700; margin:0; color:#F0F5F3">Answers in the language <span style="color:#1DD98B">they wrote in.</span></h2>
+        <div style="fontSize:14px; color:#76857F">Tap a language to preview a reply</div>
+      </div>
+      <div style="marginTop:34px; display:flex; gap:12px; flexWrap:wrap">
+        <sc-for list="{{ languages }}" as="l" hint-placeholder-count="5">
+          <button onClick="{{ l.pick }}" style="border:1px solid rgba(255,255,255,.14); borderRadius:999px; padding:12px 22px; fontSize:14.5px; fontWeight:600; background:{{ l.bg }}; color:{{ l.fg }}; borderColor:{{ l.border }}" style-hover="border:1px solid #1DD98B">{{ l.name }}</button>
+        </sc-for>
+      </div>
+      <div style="marginTop:28px; position:relative; minHeight:492px">
+        <sc-if value="{{ langSwapping }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute; inset:0; borderRadius:26px; border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.045); backdropFilter:blur(2px); animation:ghostTrail .5s cubic-bezier(.2,.7,.3,1) forwards; pointerEvents:none"></div>
+          <div style="position:absolute; inset:0; borderRadius:26px; border:1px solid rgba(29,217,139,.14); background:rgba(255,255,255,.03); animation:ghostTrail .58s .06s cubic-bezier(.2,.7,.3,1) forwards; pointerEvents:none"></div>
+          <div style="position:absolute; inset:0; borderRadius:26px; border:1px solid rgba(255,255,255,.06); background:rgba(255,255,255,.02); animation:ghostTrail .66s .12s cubic-bezier(.2,.7,.3,1) forwards; pointerEvents:none"></div>
+        </sc-if>
+        <sc-if value="{{ langReady }}" hint-placeholder-val="{{ true }}">
+          <div style="border:1px solid rgba(255,255,255,.09); borderRadius:26px; background:#0C120F; overflow:hidden; boxShadow:0 40px 90px -40px rgba(0,0,0,.9); animation:cardIn .5s cubic-bezier(.2,.8,.25,1) both">
+            <div style="display:flex; alignItems:center; gap:14px; padding:16px 22px; borderBottom:1px solid rgba(255,255,255,.07); background:rgba(255,255,255,.022)">
+              <div style="display:flex; gap:6px; marginRight:4px">
+                <span style="width:9px; height:9px; borderRadius:999px; background:rgba(255,255,255,.14)"></span>
+                <span style="width:9px; height:9px; borderRadius:999px; background:rgba(255,255,255,.14)"></span>
+                <span style="width:9px; height:9px; borderRadius:999px; background:rgba(255,255,255,.14)"></span>
+              </div>
+              <div style="width:34px; height:34px; borderRadius:999px; background:#1C2521; border:1px solid rgba(255,255,255,.10); display:flex; alignItems:center; justifyContent:center; fontFamily:'Inter',system-ui,sans-serif; fontWeight:700; fontSize:14px; color:#1DD98B">{{ langInitial }}</div>
+              <div style="flex:1; minWidth:0">
+                <div dir="auto" style="fontSize:14.5px; fontWeight:700; color:#F0F5F3">{{ langCustomer }}</div>
+                <div style="fontSize:11.5px; color:#76857F">{{ langChannel }}</div>
+              </div>
+              <div style="display:flex; alignItems:center; gap:8px; padding:7px 13px; borderRadius:999px; border:1px solid rgba(29,217,139,.3); background:rgba(29,217,139,.08); fontSize:11.5px; fontWeight:700; letterSpacing:0.08em; textTransform:uppercase; color:#1DD98B">
+                <span style="width:6px; height:6px; borderRadius:999px; background:#1DD98B"></span>{{ langName }}
+              </div>
+            </div>
+            <div style="padding:26px 24px; display:flex; flexDirection:column; gap:14px; minHeight:334px">
+              <sc-for list="{{ langMsgs }}" as="m" hint-placeholder-count="4">
+                <sc-if value="{{ m.isUser }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex; justifyContent:flex-start; animation:fadeUp .4s ease both">
+                    <div dir="auto" data-r="bubble" style="maxWidth:64%; background:#151D19; border:1px solid rgba(255,255,255,.07); borderRadius:18px 18px 18px 5px; padding:14px 18px; fontSize:15.5px; lineHeight:1.55; color:#DFE8E4">{{ m.text }}</div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ m.isAgent }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex; justifyContent:flex-end; animation:fadeUp .4s ease both">
+                    <div dir="auto" data-r="bubble" style="maxWidth:64%; background:#1DD98B; borderRadius:18px 18px 5px 18px; padding:14px 18px; fontSize:15.5px; lineHeight:1.55; fontWeight:500; color:#04140D">{{ m.text }}</div>
+                  </div>
+                </sc-if>
+              </sc-for>
+              <sc-if value="{{ langTyping }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex; justifyContent:flex-end; animation:fadeUp .3s ease both">
+                  <div style="background:#151D19; border:1px solid rgba(255,255,255,.07); borderRadius:18px 18px 5px 18px; padding:16px 18px; display:flex; gap:5px">
+                    <span style="width:6px; height:6px; borderRadius:999px; background:#1DD98B; animation:blink 1.2s infinite"></span>
+                    <span style="width:6px; height:6px; borderRadius:999px; background:#1DD98B; animation:blink 1.2s .2s infinite"></span>
+                    <span style="width:6px; height:6px; borderRadius:999px; background:#1DD98B; animation:blink 1.2s .4s infinite"></span>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+            <div style="display:flex; alignItems:center; gap:14px; padding:16px 22px; borderTop:1px solid rgba(255,255,255,.07); background:rgba(255,255,255,.022)">
+              <div dir="auto" style="flex:1; fontSize:14.5px; color:#5A6862">{{ langDraft }}</div>
+              <div style="width:36px; height:36px; borderRadius:999px; background:rgba(29,217,139,.12); border:1px solid rgba(29,217,139,.3); display:flex; alignItems:center; justifyContent:center; color:#1DD98B; fontSize:15px">↑</div>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </section>
+
+    <section style="borderTop:1px solid rgba(255,255,255,.06); background:#070B0A">
+      <div data-r="indpad" style="maxWidth:1240px; margin:0 auto; padding:96px 0 96px 28px">
+        <div data-r="indinner" style="paddingRight:28px">
+          <div style="fontSize:12.5px; fontWeight:700; letterSpacing:0.16em; textTransform:uppercase; color:#1DD98B">/ Industries we serve</div>
+          <div data-r="two" style="marginTop:26px; display:grid; gridTemplateColumns:1.15fr .85fr; gap:56px; alignItems:end">
+            <h2 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:clamp(34px, 4.4vw, 62px); lineHeight:1.02; letterSpacing:-0.035em; fontWeight:700; margin:0; color:#F0F5F3">Trained for<br><span style="color:#67766F">your industry</span></h2>
+            <div>
+              <p style="fontSize:15.5px; lineHeight:1.7; color:#84938D; margin:0; maxWidth:420px; textWrap:pretty">Every agent is trained on the questions your customers actually ask — pricing, availability, bookings and follow-ups, in the way your industry works.</p>
+              <div style="marginTop:22px; display:flex; gap:26px; flexWrap:wrap">
+                <a href="{{ calendly }}" target="_blank" style="fontSize:14.5px; fontWeight:600; display:inline-flex; alignItems:center; gap:8px">Book a demo <span style="fontSize:12px">›</span></a>
+                <button onClick="{{ goContact }}" style="background:none; border:0; padding:0; fontSize:14.5px; fontWeight:600; color:#1DD98B; display:inline-flex; alignItems:center; gap:8px">Talk to us <span style="fontSize:12px">›</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="ind-rail" style="marginTop:52px; display:flex; gap:16px; overflowX:auto; scrollbarWidth:none; scrollSnapType:x mandatory; paddingRight:28px; paddingBottom:4px">
+          <sc-for list="{{ industries }}" as="ind" hint-placeholder-count="6">
+            <button type="button" data-ind="card" style="padding:0; textAlign:left; position:relative; flex:0 0 auto; width:236px; aspectRatio:3 / 4; borderRadius:18px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:#101714; scrollSnapAlign:start; transition:width .45s cubic-bezier(.2,.8,.25,1), border-color .3s ease; cursor:pointer">
+              <image-slot id="industry-{{ ind.slug }}" shape="rect" fit="cover" placeholder="{{ ind.name }} photo"></image-slot>
+              <div style="position:absolute; inset:0; pointerEvents:none; background:linear-gradient(180deg, rgba(7,11,10,.10) 0%, transparent 38%, rgba(7,11,10,.86) 100%)"></div>
+              <div style="position:absolute; left:0; right:0; bottom:0; padding:14px; display:flex; alignItems:flex-end; justifyContent:space-between; gap:10px; pointerEvents:none">
+                <div data-ind="chip" style="borderRadius:10px; padding:8px 12px; fontSize:12.5px; fontWeight:700; lineHeight:1.25; letterSpacing:-0.01em; background:rgba(7,11,10,.62); color:#DFE8E4; transition:background .3s ease, color .3s ease">{{ ind.name }}</div>
+                <div data-ind="arrow" style="flexShrink:0; width:38px; height:38px; borderRadius:999px; display:flex; alignItems:center; justifyContent:center; fontSize:15px; background:rgba(7,11,10,.55); color:#DFE8E4; border:1px solid rgba(255,255,255,.16); transition:background .3s ease, color .3s ease">↗</div>
+              </div>
+            </button>
+          </sc-for>
+        </div>
+
+        <div style="marginTop:26px; paddingRight:28px; display:flex; alignItems:center; gap:20px">
+          <div style="flex:1; height:2px; background:rgba(255,255,255,.09); borderRadius:999px; position:relative; overflow:hidden">
+            <div id="ind-bar" style="position:absolute; top:0; bottom:0; left:0; width:34%; background:#1DD98B; borderRadius:999px"></div>
+          </div>
+          <div style="display:flex; gap:10px">
+            <button onClick="{{ railPrev }}" style="width:40px; height:40px; borderRadius:999px; background:transparent; border:1px solid rgba(255,255,255,.14); color:#B9C7C1; fontSize:15px" style-hover="border:1px solid #1DD98B; color:#1DD98B">←</button>
+            <button onClick="{{ railNext }}" style="width:40px; height:40px; borderRadius:999px; background:transparent; border:1px solid rgba(255,255,255,.14); color:#B9C7C1; fontSize:15px" style-hover="border:1px solid #1DD98B; color:#1DD98B">→</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="position:relative; borderTop:1px solid rgba(255,255,255,.06); background:#0A0F0D; overflow:hidden">
+      <div style="position:absolute; top:-120px; right:8%; width:640px; height:520px; background:radial-gradient(ellipse at center, rgba(29,217,139,.10), transparent 70%); filter:blur(14px); pointerEvents:none"></div>
+      <div data-r="pad two" style="maxWidth:1240px; margin:0 auto; padding:96px 28px; position:relative; display:grid; gridTemplateColumns:1.02fr .98fr; gap:64px; alignItems:center">
+        <div>
+          <div style="fontSize:12.5px; fontWeight:700; letterSpacing:0.16em; textTransform:uppercase; color:#1DD98B">New · Website chatbot</div>
+          <h2 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:clamp(30px, 3.2vw, 46px); lineHeight:1.1; letterSpacing:-0.03em; fontWeight:700; margin:20px 0 0; color:#67766F">A custom chatbot <span style="color:#F0F5F3">on your own website</span> — not a plugin.</h2>
+          <p style="fontSize:15.5px; lineHeight:1.7; color:#84938D; marginTop:20px; maxWidth:540px; textWrap:pretty">Built and trained on your business, styled to your brand, and installed with one line of code. It talks like a person, not a menu of buttons — and it turns a visitor who was about to leave into a booked appointment.</p>
+          <div data-r="g2" style="marginTop:34px; display:grid; gridTemplateColumns:1fr 1fr; gap:14px">
+            <div style="border:1px solid rgba(255,255,255,.08); borderRadius:18px; padding:20px; background:#101714">
+              <div style="fontSize:15px; fontWeight:700; color:#F0F5F3">Conversations like a human</div>
+              <p style="fontSize:13.5px; lineHeight:1.6; color:#84938D; margin:8px 0 0">Understands what visitors actually mean, asks follow-up questions, and keeps your tone of voice.</p>
+            </div>
+            <div style="border:1px solid rgba(29,217,139,.35); borderRadius:18px; padding:20px; background:rgba(29,217,139,.07)">
+              <div style="fontSize:15px; fontWeight:700; color:#1DD98B">Books appointments</div>
+              <p style="fontSize:13.5px; lineHeight:1.6; color:#8FCBB2; margin:8px 0 0">Checks your calendar, offers real slots, confirms the booking and sends the reminder.</p>
+            </div>
+            <div style="border:1px solid rgba(255,255,255,.08); borderRadius:18px; padding:20px; background:#101714">
+              <div style="fontSize:15px; fontWeight:700; color:#F0F5F3">Answers from your content</div>
+              <p style="fontSize:13.5px; lineHeight:1.6; color:#84938D; margin:8px 0 0">Prices, services, delivery, opening hours, policies — trained on your pages and documents.</p>
+            </div>
+            <div style="border:1px solid rgba(255,255,255,.08); borderRadius:18px; padding:20px; background:#101714">
+              <div style="fontSize:15px; fontWeight:700; color:#F0F5F3">Qualifies and hands over</div>
+              <p style="fontSize:13.5px; lineHeight:1.6; color:#84938D; margin:8px 0 0">Captures name, number and intent, then passes hot leads to your team in the same inbox.</p>
+            </div>
+          </div>
+          <div style="marginTop:28px; display:flex; alignItems:center; gap:18px; flexWrap:wrap">
+            <button onClick="{{ goAgentWebsite }}" style="display:inline-flex; alignItems:center; gap:10px; background:#1DD98B; color:#04100B; border:none; fontWeight:700; fontSize:15px; padding:14px 24px; borderRadius:999px" style-hover="background:#46E8A6; color:#04100B">Explore the website chatbot <span style="fontSize:17px">→</span></button>
+            <span style="fontSize:13.5px; color:#76857F">Matches your brand · works on mobile · one line of code</span>
+          </div>
+        </div>
+
+        <div style="display:flex; justifyContent:center">
+          <div style="width:100%; maxWidth:460px; border:1px solid rgba(255,255,255,.10); borderRadius:22px; background:#0D1310; overflow:hidden; boxShadow:0 50px 110px -50px rgba(0,0,0,.95)">
+            <div style="display:flex; alignItems:center; gap:9px; padding:13px 16px; borderBottom:1px solid rgba(255,255,255,.07); background:rgba(255,255,255,.022)">
+              <span style="width:9px; height:9px; borderRadius:999px; background:rgba(255,255,255,.14)"></span>
+              <span style="width:9px; height:9px; borderRadius:999px; background:rgba(255,255,255,.14)"></span>
+              <span style="width:9px; height:9px; borderRadius:999px; background:rgba(255,255,255,.14)"></span>
+              <span style="marginLeft:10px; fontSize:11.5px; color:#5F6E68; letterSpacing:0.04em">yourbusiness.com</span>
+            </div>
+            <div style="padding:22px 20px 24px; display:flex; flexDirection:column; gap:14px; background:#0A0F0D">
+              <div style="display:flex; alignItems:center; gap:11px; paddingBottom:14px; borderBottom:1px solid rgba(255,255,255,.06)">
+                <span style="width:34px; height:34px; borderRadius:11px; background:rgba(29,217,139,.12); border:1px solid rgba(29,217,139,.28); color:#1DD98B; display:flex; alignItems:center; justifyContent:center; fontSize:12px; fontWeight:700">AI</span>
+                <span style="display:flex; flexDirection:column; gap:2px">
+                  <span style="fontSize:14px; fontWeight:700; color:#F0F5F3">Chat with us</span>
+                  <span style="fontSize:11.5px; color:#1DD98B">Online now · replies instantly</span>
+                </span>
+              </div>
+              <div style="alignSelf:flex-end; maxWidth:82%; background:#1DD98B; color:#04140D; fontSize:13.5px; lineHeight:1.55; padding:11px 14px; borderRadius:16px 16px 4px 16px">Do you do consultations this week?</div>
+              <div style="alignSelf:flex-start; maxWidth:86%; background:#131A17; border:1px solid rgba(255,255,255,.07); color:#C7D4CE; fontSize:13.5px; lineHeight:1.55; padding:11px 14px; borderRadius:16px 16px 16px 4px">Yes — I have Wednesday 11:00 and Thursday 16:00 open. Which suits you better?</div>
+              <div style="alignSelf:flex-end; maxWidth:82%; background:#1DD98B; color:#04140D; fontSize:13.5px; lineHeight:1.55; padding:11px 14px; borderRadius:16px 16px 4px 16px">Thursday please.</div>
+              <div style="alignSelf:flex-start; maxWidth:86%; background:#131A17; border:1px solid rgba(255,255,255,.07); color:#C7D4CE; fontSize:13.5px; lineHeight:1.55; padding:11px 14px; borderRadius:16px 16px 16px 4px">Booked for Thursday 16:00. I've sent the confirmation to your email — anything else I can help with?</div>
+              <div style="display:flex; alignItems:center; gap:9px; marginTop:4px; padding:9px 13px; borderRadius:999px; border:1px solid rgba(29,217,139,.3); background:rgba(29,217,139,.07); alignSelf:flex-start">
+                <span style="width:6px; height:6px; borderRadius:999px; background:#1DD98B"></span>
+                <span style="fontSize:11.5px; fontWeight:700; letterSpacing:0.08em; textTransform:uppercase; color:#1DD98B">Appointment booked · lead saved</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section data-r="pad" style="maxWidth:1240px; margin:0 auto; padding:96px 28px">
+      <div style="maxWidth:620px; margin:0 auto; textAlign:center">
+        <div style="fontSize:12.5px; fontWeight:700; letterSpacing:0.16em; textTransform:uppercase; color:#1DD98B">Simple steps</div>
+        <h2 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:clamp(30px, 3.4vw, 48px); lineHeight:1.1; letterSpacing:-0.035em; fontWeight:700; margin:18px 0 0; color:#F0F5F3">How it works</h2>
+        <p style="fontSize:16px; lineHeight:1.65; color:#84938D; margin:16px 0 0; textWrap:pretty">No long build, no new software for your team. Live in 5 to 10 working days.</p>
+      </div>
+
+      <div data-r="two" style="marginTop:64px; display:grid; gridTemplateColumns:1fr 1fr; gap:72px; alignItems:center">
+
+        <div data-r="howcol" style="position:relative; paddingBottom:70px; paddingRight:56px">
+          <div style="position:relative; width:100%; maxWidth:400px; aspectRatio:4 / 5; borderRadius:24px; overflow:hidden; border:1px solid rgba(255,255,255,.08); boxShadow:0 50px 110px -60px rgba(0,0,0,.95)">
+            <image-slot id="howitworks-owner" shape="rect" fit="cover" placeholder="Drop the owner photo here"></image-slot>
+            <div style="position:absolute; inset:0; pointerEvents:none; background:linear-gradient(180deg, rgba(7,11,10,.18) 0%, transparent 40%, rgba(7,11,10,.45) 100%)"></div>
+          </div>
+
+          <div style="position:absolute; top:40%; left:58%; zIndex:3; display:inline-flex; alignItems:center; gap:8px; padding:8px 14px; borderRadius:999px; background:#1DD98B; color:#04140D; fontSize:12px; fontWeight:700; whiteSpace:nowrap; boxShadow:0 18px 40px -18px rgba(29,217,139,.8); animation:floatCard 7s ease-in-out infinite">{{ stepPill }}</div>
+
+          <div style="position:absolute; right:0; bottom:0; zIndex:2; width:min(320px, 78%); borderRadius:20px; border:1px solid rgba(255,255,255,.10); background:rgba(13,19,16,.92); backdropFilter:blur(20px); WebkitBackdropFilter:blur(20px); boxShadow:0 40px 90px -40px rgba(0,0,0,.98); overflow:hidden">
+            <div style="padding:14px 16px; borderBottom:1px solid rgba(255,255,255,.07); fontSize:12.5px; fontWeight:700; color:#F0F5F3">{{ stepCardTitle }}</div>
+            <div style="padding:14px 16px; display:flex; flexDirection:column; gap:10px">
+              <sc-for list="{{ stepCardRows }}" as="r" hint-placeholder-count="4">
+                <div style="display:flex; alignItems:center; gap:11px">
+                  <span style="flexShrink:0; width:26px; height:26px; borderRadius:8px; background:rgba(29,217,139,.12); border:1px solid rgba(29,217,139,.28); color:#1DD98B; display:flex; alignItems:center; justifyContent:center; fontSize:9.5px; fontWeight:800">{{ r.mark }}</span>
+                  <span style="flex:1; minWidth:0; fontSize:12.5px; color:#C7D4CE; whiteSpace:nowrap; overflow:hidden; textOverflow:ellipsis">{{ r.label }}</span>
+                  <span style="flexShrink:0; fontSize:10.5px; fontWeight:700; letterSpacing:0.06em; textTransform:uppercase; color:{{ r.tagColor }}">{{ r.tag }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; flexDirection:column">
+          <sc-for list="{{ steps }}" as="s" hint-placeholder-count="3">
+            <button onClick="{{ s.pick }}" style="textAlign:left; background:none; border:none; borderLeft:2px solid {{ s.rail }}; padding:22px 0 26px 26px; display:flex; gap:18px; alignItems:flex-start" style-hover="border-left:2px solid #1DD98B">
+              <span style="flexShrink:0; width:42px; height:42px; borderRadius:13px; background:{{ s.tileBg }}; border:1px solid {{ s.tileBorder }}; color:{{ s.tileColor }}; display:flex; alignItems:center; justifyContent:center; fontFamily:'Inter',system-ui,sans-serif; fontSize:14px; fontWeight:700">{{ s.num }}</span>
+              <span style="display:flex; flexDirection:column; gap:8px">
+                <span style="fontFamily:'Inter',system-ui,sans-serif; fontSize:19px; fontWeight:600; letterSpacing:-0.02em; color:{{ s.titleColor }}">{{ s.title }}</span>
+                <span style="fontSize:14.5px; lineHeight:1.65; color:#84938D; maxWidth:420px">{{ s.desc }}</span>
+              </span>
+            </button>
+          </sc-for>
+          <div style="paddingLeft:28px; marginTop:14px">
+            <button onClick="{{ goServices }}" style="display:inline-flex; alignItems:center; gap:9px; background:none; border:1px solid rgba(255,255,255,.14); color:#F0F5F3; borderRadius:999px; padding:12px 22px; fontSize:14px; fontWeight:700; whiteSpace:nowrap" style-hover="border:1px solid #1DD98B">See what's included <span>→</span></button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isServices }}" hint-placeholder-val="{{ false }}">
+  <main data-r="pad" style="maxWidth:1240px; margin:0 auto; padding:76px 28px 96px">
+    <div style="maxWidth:720px; margin:0 auto; textAlign:center">
+      <h1 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:clamp(32px, 3.8vw, 52px); lineHeight:1.1; letterSpacing:-0.035em; fontWeight:700; margin:0; color:#F0F5F3"><span style="color:#1DD98B">Smart Pricing</span> for Smarter Deals</h1>
+      <p style="fontSize:16px; lineHeight:1.65; color:#84938D; margin:18px auto 0; maxWidth:560px; textWrap:pretty">Pick the plan that fits your workflow and scale as your business grows. One setup fee, then a monthly fee to run, monitor and improve your agent. No long contract.</p>
+    </div>
+
+    <div style="marginTop:38px; display:flex; justifyContent:center">
+    <div style="display:inline-flex; gap:6px; padding:6px; borderRadius:999px; border:1px solid rgba(255,255,255,.12); background:#0D1310" role="tablist" aria-label="Currency">
+      <sc-for list="{{ currencies }}" as="c" hint-placeholder-count="3">
+        <button onClick="{{ c.pick }}" style="border:none; borderRadius:999px; padding:11px 24px; fontSize:14px; fontWeight:700; background:{{ c.bg }}; color:{{ c.fg }}">{{ c.code }}</button>
+      </sc-for>
+    </div>
+    </div>
+
+    <div data-r="pricing3" style="marginTop:40px; display:grid; gridTemplateColumns:repeat(3, 1fr); gap:22px; alignItems:start; maxWidth:1080px; marginLeft:auto; marginRight:auto">
+      <sc-for list="{{ plans }}" as="p" hint-placeholder-count="3">
+        <div style="position:relative; border:1px solid {{ p.borderColor }}; borderRadius:20px; padding:30px 26px 32px; background:{{ p.cardBg }}; overflow:hidden; animation:{{ p.glow }}">
+          <sc-if value="{{ p.popular }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute; top:0; right:0; width:80px; height:80px; overflow:hidden; pointerEvents:none">
+              <div style="position:absolute; top:22px; left:-26px; width:114px; transform:rotate(-45deg); background:#1DD98B; color:#04140D; textAlign:center; fontSize:7.5px; fontWeight:800; letterSpacing:0; whiteSpace:nowrap; padding:4px 0; boxShadow:0 8px 22px -10px rgba(29,217,139,.9)">Most Recommended</div>
+            </div>
+            <div style="position:absolute; top:0; left:0; right:0; height:100%; overflow:hidden; pointerEvents:none">
+              <div style="position:absolute; top:0; bottom:0; width:38%; background:linear-gradient(90deg, transparent, rgba(29,217,139,.09), transparent); animation:popSweep 4.2s ease-in-out infinite"></div>
+            </div>
+          </sc-if>
+          <div style="position:relative">
+          <div style="fontSize:15px; fontWeight:600; color:#1DD98B">{{ p.name }}</div>
+          <div style="marginTop:18px; display:flex; alignItems:baseline; gap:8px">
+            <span style="fontFamily:'Inter',system-ui,sans-serif; fontSize:34px; fontWeight:700; letterSpacing:-0.035em; color:#F0F5F3">{{ p.monthly }}</span>
+            <span style="fontSize:12.5px; color:#76857F">(per month)</span>
+          </div>
+          <div style="marginTop:9px; fontSize:12.5px; fontWeight:700; color:#C7D4CE">{{ p.setup }} <span style="fontWeight:400; color:#76857F">one-time onboarding fee</span></div>
+          <p style="margin:20px 0 0; fontSize:13px; lineHeight:1.6; color:#84938D; minHeight:62px; textWrap:pretty">{{ p.blurb }}</p>
+          <a href="{{ calendly }}" target="_blank" rel="noopener" style="marginTop:4px; display:flex; justifyContent:center; background:#2E7D50; border:1px solid rgba(29,217,139,.45); color:#EAF7F0; fontWeight:600; fontSize:13.5px; padding:11px 20px; borderRadius:8px" style-hover="background:#1DD98B; color:#04140D">Get Started</a>
+          <div style="marginTop:26px; paddingTop:22px; borderTop:1px solid rgba(255,255,255,.08); fontSize:11.5px; fontWeight:700; letterSpacing:0.1em; textTransform:uppercase; color:#C7D4CE">What's included?</div>
+          <ul style="listStyle:none; padding:0; margin:18px 0 0; display:flex; flexDirection:column; gap:11px">
+            <sc-for list="{{ p.features }}" as="f" hint-placeholder-count="5">
+              <li style="display:flex; gap:10px; alignItems:flex-start; fontSize:13px; lineHeight:1.5; color:#93A29C">
+                <span style="flexShrink:0; marginTop:1px; width:15px; height:15px; borderRadius:999px; border:1px solid rgba(29,217,139,.5); color:#1DD98B; fontSize:9px; display:flex; alignItems:center; justifyContent:center">✓</span><span>{{ f }}</span>
+              </li>
+            </sc-for>
+          </ul>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="maxWidth:1080px; margin:34px auto 0; display:flex; alignItems:baseline; gap:22px; flexWrap:wrap; fontSize:12.5px; color:#76857F">
+      <span style="fontWeight:700; color:#C7D4CE">Additional usage (pay-as-you-go):</span>
+      <span>Extra conversations beyond your plan — billed per conversation</span>
+      <span>·</span>
+      <span>Additional channel — quoted monthly</span>
+      <span>·</span>
+      <span>Custom integrations — quoted per project</span>
+    </div>
+
+    <div data-r="two" style="marginTop:96px; display:grid; gridTemplateColumns:.8fr 1.2fr; gap:56px">
+      <h2 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:clamp(28px, 3vw, 42px); lineHeight:1.1; letterSpacing:-0.03em; fontWeight:700; margin:0; color:#67766F">Common <span style="color:#F0F5F3">questions</span></h2>
+      <div style="display:flex; flexDirection:column; borderTop:1px solid rgba(255,255,255,.09)">
+        <sc-for list="{{ faqs }}" as="q" hint-placeholder-count="5">
+          <div style="borderBottom:1px solid rgba(255,255,255,.09)">
+            <button onClick="{{ q.toggle }}" aria-expanded="{{ q.open }}" style="width:100%; display:flex; alignItems:center; justifyContent:space-between; gap:20px; background:none; border:none; padding:22px 0; textAlign:left; fontFamily:'Inter',system-ui,sans-serif; fontSize:18px; fontWeight:600; letterSpacing:-0.01em; color:#F0F5F3">
+              <span>{{ q.q }}</span>
+              <span style="color:#1DD98B; fontSize:22px; lineHeight:1">{{ q.sign }}</span>
+            </button>
+            <sc-if value="{{ q.open }}" hint-placeholder-val="{{ false }}">
+              <p style="margin:0 0 24px; paddingRight:40px; fontSize:15px; lineHeight:1.7; color:#84938D; textWrap:pretty">{{ q.a }}</p>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isAgent }}" hint-placeholder-val="{{ false }}">
+  <main>
+    <section style="position:relative; overflow:hidden">
+      <div style="position:absolute; top:-200px; left:50%; width:900px; height:560px; transform:translateX(-50%); background:radial-gradient(ellipse at center, rgba(29,217,139,.10), transparent 65%); filter:blur(18px); pointerEvents:none"></div>
+      <div data-r="pad" style="maxWidth:1240px; margin:0 auto; padding:64px 28px 0; position:relative">
+        <div style="display:flex; gap:8px; flexWrap:wrap; justifyContent:center">
+          <sc-for list="{{ agentTabs }}" as="a" hint-placeholder-count="4">
+            <button onClick="{{ a.pick }}" style="display:inline-flex; alignItems:center; gap:9px; border:1px solid {{ a.border }}; borderRadius:999px; padding:9px 16px; fontSize:13.5px; fontWeight:600; whiteSpace:nowrap; background:{{ a.bg }}; color:{{ a.fg }}" style-hover="border:1px solid #1DD98B">
+              <span style="fontSize:10.5px; fontWeight:800; letterSpacing:0.08em; opacity:.7">{{ a.mark }}</span>{{ a.name }}
+            </button>
+          </sc-for>
+        </div>
+
+        <div style="maxWidth:840px; margin:0 auto; textAlign:center; paddingTop:52px">
+          <div style="display:inline-flex; alignItems:center; gap:9px; padding:7px 15px 7px 11px; borderRadius:999px; border:1px solid rgba(29,217,139,.22); background:rgba(29,217,139,.06)">
+            <span style="width:6px; height:6px; borderRadius:999px; background:#1DD98B"></span>
+            <span style="fontSize:12px; fontWeight:700; letterSpacing:0.14em; textTransform:uppercase; color:#1DD98B">{{ agent.tag }}</span>
+          </div>
+          <h1 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:clamp(34px, 4.2vw, 60px); lineHeight:1.06; letterSpacing:-0.038em; fontWeight:700; margin:26px 0 0; color:#67766F; textWrap:balance">{{ agent.headA }}<span style="color:#F0F5F3">{{ agent.headB }}</span>{{ agent.headC }}</h1>
+          <p style="margin:24px auto 0; maxWidth:640px; fontSize:16.5px; lineHeight:1.7; color:#93A29C; textWrap:pretty">{{ agent.intro }}</p>
+          <div style="marginTop:32px; display:flex; justifyContent:center; gap:14px; flexWrap:wrap">
+            <a href="{{ calendly }}" target="_blank" rel="noopener" style="display:inline-flex; alignItems:center; gap:10px; background:#1DD98B; color:#04100B; fontWeight:700; fontSize:15.5px; padding:15px 28px; borderRadius:999px; boxShadow:0 18px 40px -16px rgba(29,217,139,.65)" style-hover="background:#46E8A6; color:#04100B">Book a free consultation <span style="fontSize:17px">→</span></a>
+            <button onClick="{{ goServices }}" style="display:inline-flex; alignItems:center; gap:10px; background:none; border:1px solid rgba(255,255,255,.14); color:#F0F5F3; fontWeight:700; fontSize:15.5px; padding:15px 26px; borderRadius:999px; whiteSpace:nowrap; flexShrink:0" style-hover="border:1px solid #1DD98B">See pricing</button>
+          </div>
+        </div>
+
+        <div data-r="g3" style="marginTop:64px; display:grid; gridTemplateColumns:repeat(3, 1fr); gap:20px; maxWidth:900px; marginLeft:auto; marginRight:auto">
+          <sc-for list="{{ agentStats }}" as="st" hint-placeholder-count="3">
+            <div style="border:1px solid rgba(255,255,255,.08); borderRadius:20px; padding:26px 24px; background:#0D1310; textAlign:center">
+              <div style="fontFamily:'Inter',system-ui,sans-serif; fontSize:28px; fontWeight:700; letterSpacing:-0.03em; color:#1DD98B">{{ st.big }}</div>
+              <div style="marginTop:8px; fontSize:13px; color:#84938D">{{ st.small }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section data-r="pad" style="maxWidth:1240px; margin:0 auto; padding:96px 28px 0">
+      <div style="maxWidth:620px">
+        <div style="fontSize:12.5px; fontWeight:700; letterSpacing:0.16em; textTransform:uppercase; color:#1DD98B">Benefits</div>
+        <h2 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:clamp(28px, 3.2vw, 44px); lineHeight:1.1; letterSpacing:-0.03em; fontWeight:700; margin:20px 0 0; color:#67766F">What the <span style="color:#F0F5F3">{{ agent.name }}</span> does for you.</h2>
+      </div>
+      <div data-r="g3" style="marginTop:44px; display:grid; gridTemplateColumns:repeat(3, 1fr); gap:20px">
+        <sc-for list="{{ agentBenefits }}" as="b" hint-placeholder-count="6">
+          <div style="border:1px solid rgba(255,255,255,.08); borderRadius:22px; padding:30px 28px; background:#0D1310; display:flex; flexDirection:column" style-hover="border:1px solid rgba(29,217,139,.45)">
+            <div style="fontFamily:'Inter',system-ui,sans-serif; fontSize:14px; fontWeight:700; color:#1DD98B">{{ b.num }}</div>
+            <h3 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:19px; fontWeight:600; lineHeight:1.28; letterSpacing:-0.02em; color:#F0F5F3; margin:18px 0 0">{{ b.t }}</h3>
+            <p style="fontSize:14px; lineHeight:1.65; color:#84938D; margin:12px 0 0; textWrap:pretty">{{ b.d }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section data-r="pad" style="maxWidth:1240px; margin:0 auto; padding:88px 28px 0">
+      <div data-r="two padcard" style="border:1px solid rgba(255,255,255,.08); borderRadius:26px; background:#0A0F0D; padding:48px 44px; display:grid; gridTemplateColumns:.85fr 1.15fr; gap:56px; alignItems:start">
+        <div>
+          <div style="fontSize:12.5px; fontWeight:700; letterSpacing:0.16em; textTransform:uppercase; color:#1DD98B">Day to day</div>
+          <h2 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:clamp(26px, 2.6vw, 36px); lineHeight:1.14; letterSpacing:-0.03em; fontWeight:700; margin:18px 0 0; color:#F0F5F3">What it handles without you.</h2>
+          <p style="fontSize:14.5px; lineHeight:1.7; color:#84938D; marginTop:18px; textWrap:pretty">Trained on your products, prices and policies before it goes near a customer — and anything outside its scope is passed straight to your team.</p>
+        </div>
+        <ul data-r="g2" style="listStyle:none; padding:0; margin:0; display:grid; gridTemplateColumns:1fr 1fr; gap:14px 26px">
+          <sc-for list="{{ agentHandles }}" as="x" hint-placeholder-count="8">
+            <li style="display:flex; gap:11px; alignItems:flex-start; fontSize:14.5px; lineHeight:1.5; color:#B9C7C1; paddingBottom:14px; borderBottom:1px solid rgba(255,255,255,.06)">
+              <span style="flexShrink:0; marginTop:2px; width:16px; height:16px; borderRadius:999px; border:1px solid rgba(29,217,139,.5); color:#1DD98B; fontSize:9px; display:flex; alignItems:center; justifyContent:center">✓</span><span>{{ x }}</span>
+            </li>
+          </sc-for>
+        </ul>
+      </div>
+    </section>
+
+    <section data-r="pad" style="maxWidth:1240px; margin:0 auto; padding:88px 28px 96px">
+      <h2 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:clamp(26px, 2.8vw, 40px); lineHeight:1.12; letterSpacing:-0.03em; fontWeight:700; margin:0; color:#67766F">Live in <span style="color:#F0F5F3">5 to 10 working days</span>.</h2>
+      <div data-r="g3" style="marginTop:36px; display:grid; gridTemplateColumns:repeat(3, 1fr); gap:20px">
+        <div style="border:1px solid rgba(255,255,255,.08); borderRadius:22px; padding:32px 28px; background:#0D1310">
+          <div style="fontFamily:'Inter',system-ui,sans-serif; fontSize:14px; fontWeight:700; color:#1DD98B">01.</div>
+          <h3 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:20px; fontWeight:600; letterSpacing:-0.02em; color:#F0F5F3; margin:18px 0 0">A 20-minute call</h3>
+          <p style="fontSize:14px; lineHeight:1.65; color:#84938D; margin:12px 0 0">We look at your real enquiries and tell you honestly whether this agent earns its keep.</p>
+        </div>
+        <div style="border:1px solid rgba(255,255,255,.08); borderRadius:22px; padding:32px 28px; background:#0D1310">
+          <div style="fontFamily:'Inter',system-ui,sans-serif; fontSize:14px; fontWeight:700; color:#1DD98B">02.</div>
+          <h3 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:20px; fontWeight:600; letterSpacing:-0.02em; color:#F0F5F3; margin:18px 0 0">We build and train it</h3>
+          <p style="fontSize:14px; lineHeight:1.65; color:#84938D; margin:12px 0 0">Your products, prices, policies and tone of voice, tested against real questions before launch.</p>
+        </div>
+        <div style="border:1px solid rgba(255,255,255,.08); borderRadius:22px; padding:32px 28px; background:#0D1310">
+          <div style="fontFamily:'Inter',system-ui,sans-serif; fontSize:14px; fontWeight:700; color:#1DD98B">03.</div>
+          <h3 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:20px; fontWeight:600; letterSpacing:-0.02em; color:#F0F5F3; margin:18px 0 0">You watch leads land</h3>
+          <p style="fontSize:14px; lineHeight:1.65; color:#84938D; margin:12px 0 0">Every conversation becomes a lead in your dashboard. We keep tuning it month after month.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+  <main data-r="pad two" style="maxWidth:1240px; margin:0 auto; padding:76px 28px 96px; display:grid; gridTemplateColumns:.85fr 1.15fr; gap:56px; alignItems:start">
+    <div>
+      <div style="fontSize:12.5px; fontWeight:700; letterSpacing:0.16em; textTransform:uppercase; color:#1DD98B">Contact</div>
+      <h1 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:clamp(34px, 4vw, 56px); lineHeight:1.06; letterSpacing:-0.035em; fontWeight:700; margin:20px 0 0; color:#67766F">Book a free <span style="color:#F0F5F3">20-minute</span> consultation.</h1>
+      <p style="fontSize:16.5px; lineHeight:1.7; color:#93A29C; marginTop:22px; textWrap:pretty">No commitment, no slide deck. Tell us where your enquiries come from and what usually goes wrong, and we'll tell you honestly whether an AI agent helps.</p>
+      <ul style="listStyle:none; padding:0; margin:32px 0 0; display:flex; flexDirection:column; gap:14px">
+        <li style="display:flex; gap:12px; fontSize:15px; color:#B9C7C1"><span style="color:#1DD98B; fontWeight:700">✓</span><span>We look at your real WhatsApp or Instagram enquiries</span></li>
+        <li style="display:flex; gap:12px; fontSize:15px; color:#B9C7C1"><span style="color:#1DD98B; fontWeight:700">✓</span><span>You get a clear scope, timeline and price on the call</span></li>
+        <li style="display:flex; gap:12px; fontSize:15px; color:#B9C7C1"><span style="color:#1DD98B; fontWeight:700">✓</span><span>Conversations in Bangla, English or Arabic — your choice</span></li>
+      </ul>
+      <div style="marginTop:36px; paddingTop:26px; borderTop:1px solid rgba(255,255,255,.08); fontSize:14px; color:#76857F; lineHeight:1.7">
+        Prefer to write first? Email <a href="mailto:info@falahchat.com">info@falahchat.com</a> or call <a href="tel:+8801947441287">+880 1947-441287</a><br>Working hours 10:00–19:00 (GMT+6), replies within a day.
+      </div>
+    </div>
+    <div style="border:1px solid rgba(255,255,255,.09); borderRadius:26px; padding:14px; background:#0D1310">
+      <div style="borderRadius:18px; background:#0A0F0D; border:1px dashed rgba(29,217,139,.28); minHeight:560px; display:flex; flexDirection:column; alignItems:center; justifyContent:center; gap:18px; padding:40px; textAlign:center">
+        <div style="fontSize:12px; fontWeight:700; letterSpacing:0.16em; textTransform:uppercase; color:#67766F">Cal.com embed</div>
+        <div style="fontFamily:'Inter',system-ui,sans-serif; fontSize:26px; fontWeight:700; letterSpacing:-0.02em; color:#F0F5F3">Pick a time that suits you</div>
+        <div style="fontSize:14.5px; lineHeight:1.6; color:#84938D; maxWidth:380px">The live scheduler loads here. Until then, the button opens the same booking page in a new tab.</div>
+        <a href="{{ calendly }}" target="_blank" rel="noopener" style="marginTop:8px; display:inline-flex; alignItems:center; gap:10px; background:#1DD98B; color:#04100B; fontWeight:700; fontSize:15px; padding:15px 26px; borderRadius:999px" style-hover="background:#46E8A6; color:#04100B">Open the booking page <span>→</span></a>
+      </div>
+    </div>
+  </main>
+  </sc-if>
+
+  <section style="position:relative; borderTop:1px solid rgba(255,255,255,.06); background:#070B0A; overflow:hidden">
+    <div style="position:absolute; top:-160px; left:50%; width:900px; height:600px; transform:translateX(-50%); background:radial-gradient(ellipse at center, rgba(29,217,139,.09), transparent 68%); filter:blur(18px); pointerEvents:none"></div>
+    <div data-r="pad" style="maxWidth:1240px; margin:0 auto; padding:104px 28px; position:relative">
+
+      <div style="maxWidth:720px; margin:0 auto; textAlign:center">
+        <div style="fontSize:12.5px; fontWeight:700; letterSpacing:0.16em; textTransform:uppercase; color:#1DD98B">Hands off</div>
+        <h2 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:clamp(32px, 3.6vw, 52px); lineHeight:1.08; letterSpacing:-0.035em; fontWeight:700; margin:20px 0 0; color:#F0F5F3; textWrap:balance">Go do your other things. <span style="color:#1DD98B">The agent runs the front desk.</span></h2>
+        <p style="fontSize:16.5px; lineHeight:1.7; color:#93A29C; margin:18px auto 0; maxWidth:520px; textWrap:pretty">It answers, qualifies and books calls across every channel — you step in only to close.</p>
+      </div>
+
+      <div style="position:relative; marginTop:52px; borderRadius:28px; overflow:hidden; border:1px solid rgba(255,255,255,.08); boxShadow:0 70px 150px -70px rgba(0,0,0,.98)">
+        <div data-r="night" style="position:relative; width:100%; aspectRatio:16 / 8">
+          <image-slot id="midnight-owner" shape="rect" fit="cover" src="uploads/exhausted-overworked-businessman-sleeping-desk-table-startup-business-office.jpg" placeholder="Drop the night-time photo here"></image-slot>
+          <div style="position:absolute; inset:0; pointerEvents:none; background:linear-gradient(90deg, rgba(7,11,10,.88) 0%, rgba(7,11,10,.62) 40%, rgba(7,11,10,.20) 72%, rgba(7,11,10,.55) 100%)"></div>
+          <div style="position:absolute; inset:0; pointerEvents:none; background:linear-gradient(180deg, rgba(7,11,10,.42) 0%, transparent 30%, rgba(7,11,10,.72) 100%)"></div>
+
+          <div data-r="nightcards" style="position:absolute; top:8%; left:4%; display:flex; flexDirection:column; gap:12px; width:min(340px, 42%); pointerEvents:none">
+            <div style="display:flex; alignItems:center; gap:12px; padding:12px 15px; borderRadius:16px; background:rgba(13,19,16,.80); backdropFilter:blur(18px); WebkitBackdropFilter:blur(18px); border:1px solid rgba(255,255,255,.12); boxShadow:0 26px 60px -30px rgba(0,0,0,.95); animation:floatCard 7s ease-in-out infinite">
+              <span style="flexShrink:0; width:32px; height:32px; borderRadius:10px; background:rgba(29,217,139,.12); border:1px solid rgba(29,217,139,.3); color:#1DD98B; display:flex; alignItems:center; justifyContent:center; fontSize:11px; fontWeight:800">WA</span>
+              <div style="minWidth:0; flex:1">
+                <div style="display:flex; alignItems:baseline; justifyContent:space-between; gap:10px"><span style="fontSize:12.5px; fontWeight:700; color:#F0F5F3">New message</span><span style="fontSize:11px; color:#5F6E68">3:06 AM</span></div>
+                <div style="marginTop:3px; fontSize:12.5px; color:#93A29C; whiteSpace:nowrap; overflow:hidden; textOverflow:ellipsis">"What's your service cost?"</div>
+              </div>
+            </div>
+            <div style="display:flex; alignItems:center; gap:12px; padding:12px 15px; borderRadius:16px; background:rgba(13,19,16,.80); backdropFilter:blur(18px); WebkitBackdropFilter:blur(18px); border:1px solid rgba(255,255,255,.12); boxShadow:0 26px 60px -30px rgba(0,0,0,.95); marginLeft:26px; animation:floatCard 7s 1.2s ease-in-out infinite">
+              <span style="flexShrink:0; width:32px; height:32px; borderRadius:10px; background:rgba(29,217,139,.12); border:1px solid rgba(29,217,139,.3); color:#1DD98B; display:flex; alignItems:center; justifyContent:center; fontSize:11px; fontWeight:800">IG</span>
+              <div style="minWidth:0; flex:1">
+                <div style="display:flex; alignItems:baseline; justifyContent:space-between; gap:10px"><span style="fontSize:12.5px; fontWeight:700; color:#F0F5F3">New enquiry</span><span style="fontSize:11px; color:#5F6E68">3:11 AM</span></div>
+                <div style="marginTop:3px; fontSize:12.5px; color:#93A29C; whiteSpace:nowrap; overflow:hidden; textOverflow:ellipsis">"Do you deliver to Chattogram?"</div>
+              </div>
+            </div>
+            <div style="display:flex; alignItems:center; gap:12px; padding:12px 15px; borderRadius:16px; background:rgba(29,217,139,.12); backdropFilter:blur(18px); WebkitBackdropFilter:blur(18px); border:1px solid rgba(29,217,139,.45); boxShadow:0 26px 60px -28px rgba(29,217,139,.55); marginLeft:52px; animation:floatCard 7s 2.4s ease-in-out infinite">
+              <span style="flexShrink:0; width:32px; height:32px; borderRadius:10px; background:#1DD98B; color:#04140D; display:flex; alignItems:center; justifyContent:center; fontSize:13px; fontWeight:800">✓</span>
+              <div style="minWidth:0; flex:1">
+                <div style="display:flex; alignItems:baseline; justifyContent:space-between; gap:10px"><span style="fontSize:12.5px; fontWeight:700; color:#1DD98B">Booked</span><span style="fontSize:11px; color:#5F8E76">3:19 AM</span></div>
+                <div style="marginTop:3px; fontSize:12.5px; color:#8FCBB2; whiteSpace:nowrap; overflow:hidden; textOverflow:ellipsis">"Call confirmed for 10:00 AM."</div>
+              </div>
+            </div>
+          </div>
+
+          <div data-r="nightfoot" style="position:absolute; left:0; right:0; bottom:0; padding:34px 38px; pointerEvents:none; display:flex; alignItems:flex-end; justifyContent:space-between; gap:36px; flexWrap:wrap">
+            <div style="fontSize:15.5px; lineHeight:1.6; color:#C7D4CE; maxWidth:420px; textWrap:pretty">He stepped away from the desk. Three enquiries came in. One is already on his calendar.</div>
+            <div style="display:flex; gap:44px; flexWrap:wrap">
+              <div>
+                <div style="fontFamily:'Inter',system-ui,sans-serif; fontSize:26px; fontWeight:700; letterSpacing:-0.03em; color:#F0F5F3">9pm–1am</div>
+                <div style="marginTop:5px; fontSize:13px; color:#93A29C">peak enquiry hours</div>
+              </div>
+              <div>
+                <div style="fontFamily:'Inter',system-ui,sans-serif; fontSize:26px; fontWeight:700; letterSpacing:-0.03em; color:#1DD98B">Zero</div>
+                <div style="marginTop:5px; fontSize:13px; color:#93A29C">waiting in the morning</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section style="borderTop:1px solid rgba(255,255,255,.06); background:#0A0F0D">
+    <div data-r="pad stack" style="maxWidth:1240px; margin:0 auto; padding:88px 28px; display:flex; alignItems:center; justifyContent:space-between; gap:40px; flexWrap:wrap">
+      <h2 style="fontFamily:'Inter',system-ui,sans-serif; fontSize:clamp(28px, 3.2vw, 46px); lineHeight:1.08; letterSpacing:-0.03em; fontWeight:700; margin:0; color:#67766F; maxWidth:640px">Your next customer <span style="color:#F0F5F3">already messaged you.</span> <span style="color:#1DD98B">Answer them.</span></h2>
+      <a href="{{ calendly }}" target="_blank" rel="noopener" style="display:inline-flex; alignItems:center; gap:10px; background:#1DD98B; color:#04100B; fontWeight:700; fontSize:16px; padding:18px 30px; borderRadius:999px; whiteSpace:nowrap" style-hover="background:#46E8A6; color:#04100B">Book a free consultation <span style="fontSize:18px">→</span></a>
+    </div>
+  </section>
+
+  <footer style="position:relative; borderTop:1px solid rgba(255,255,255,.06); background:#070B0A; overflow:hidden">
+    <div data-r="pad" style="maxWidth:1240px; margin:0 auto; padding:78px 28px 26px">
+
+      <div data-r="footer3" style="display:grid; gridTemplateColumns:auto auto 1fr; gap:56px; alignItems:start">
+        <div style="display:flex; flexDirection:column; gap:34px; minWidth:150px">
+          <img src="uploads/falah-chat-logo-transparent.webp" alt="Falah Chat" style="height:34px; width:auto; alignSelf:flex-start; display:block" />
+          <div style="display:flex; flexDirection:column; minWidth:150px">
+          <button onClick="{{ goHome }}" style="textAlign:left; background:none; border:none; padding:11px 0; borderBottom:1px solid rgba(255,255,255,.07); fontSize:14px; fontWeight:500; color:#84938D" style-hover="color:#F0F5F3">Home</button>
+          <button onClick="{{ goServices }}" style="textAlign:left; background:none; border:none; padding:11px 0; borderBottom:1px solid rgba(255,255,255,.07); fontSize:14px; fontWeight:500; color:#84938D" style-hover="color:#F0F5F3">Pricing</button>
+          <button onClick="{{ goServices }}" style="textAlign:left; background:none; border:none; padding:11px 0; borderBottom:1px solid rgba(255,255,255,.07); fontSize:14px; fontWeight:500; color:#84938D" style-hover="color:#F0F5F3">FAQ</button>
+          <button onClick="{{ goContact }}" style="textAlign:left; background:none; border:none; padding:11px 0; borderBottom:1px solid rgba(255,255,255,.07); fontSize:14px; fontWeight:500; color:#84938D" style-hover="color:#F0F5F3">Contact</button>
+          </div>
+        </div>
+
+        <div data-r="footcol2" style="display:flex; flexDirection:column; minWidth:170px; marginTop:68px">
+          <button onClick="{{ goAgentWhatsApp }}" style="textAlign:left; background:none; border:none; padding:11px 0; borderBottom:1px solid rgba(255,255,255,.07); fontSize:14px; fontWeight:500; color:#84938D" style-hover="color:#F0F5F3">WhatsApp Agent</button>
+          <button onClick="{{ goAgentInstagram }}" style="textAlign:left; background:none; border:none; padding:11px 0; borderBottom:1px solid rgba(255,255,255,.07); fontSize:14px; fontWeight:500; color:#84938D" style-hover="color:#F0F5F3">Instagram Agent</button>
+          <button onClick="{{ goAgentMessenger }}" style="textAlign:left; background:none; border:none; padding:11px 0; borderBottom:1px solid rgba(255,255,255,.07); fontSize:14px; fontWeight:500; color:#84938D" style-hover="color:#F0F5F3">Messenger Agent</button>
+          <button onClick="{{ goAgentWebsite }}" style="textAlign:left; background:none; border:none; padding:11px 0; borderBottom:1px solid rgba(255,255,255,.07); fontSize:14px; fontWeight:500; color:#84938D" style-hover="color:#F0F5F3">Custom Website Chatbot</button>
+          <a href="{{ calendly }}" target="_blank" rel="noopener" style="textAlign:left; padding:11px 0; borderBottom:1px solid rgba(255,255,255,.07); fontSize:14px; fontWeight:500; color:#84938D" style-hover="color:#F0F5F3">Book a call</a>
+        </div>
+
+        <div data-r="bigwrap" style="justifySelf:end; textAlign:right">
+          <h2 data-r="bigtext" style="fontFamily:'Inter',system-ui,sans-serif; fontSize:clamp(34px, 5.2vw, 76px); lineHeight:1.0; letterSpacing:-0.045em; fontWeight:700; margin:0; color:#1B221F; whiteSpace:nowrap">
+            Let's Make Every<span style="display:block; color:#151B18">Message Count</span>
+          </h2>
+        </div>
+      </div>
+
+      <div style="marginTop:74px; paddingTop:30px; borderTop:1px solid rgba(255,255,255,.07); display:flex; alignItems:flex-end; justifyContent:space-between; gap:44px; flexWrap:wrap">
+        <div style="display:flex; gap:56px; flexWrap:wrap">
+        <div style="display:flex; flexDirection:column; gap:8px">
+          <div style="fontSize:11px; fontWeight:600; letterSpacing:0.14em; textTransform:uppercase; color:#5B6A64">Business enquiries</div>
+          <a href="mailto:info@falahchat.com" style="fontSize:14.5px; fontWeight:500; color:#C7D3CE" style-hover="color:#1DD98B">info@falahchat.com</a>
+        </div>
+        <div style="display:flex; flexDirection:column; gap:8px">
+          <div style="fontSize:11px; fontWeight:600; letterSpacing:0.14em; textTransform:uppercase; color:#5B6A64">Phone</div>
+          <a href="tel:+8801947441287" style="fontSize:14.5px; fontWeight:500; color:#C7D3CE; whiteSpace:nowrap" style-hover="color:#1DD98B">+880 1947-441287</a>
+        </div>
+        <div style="display:flex; flexDirection:column; gap:8px">
+          <div style="fontSize:11px; fontWeight:600; letterSpacing:0.14em; textTransform:uppercase; color:#5B6A64">WhatsApp</div>
+          <a href="https://wa.me/8801947441287" target="_blank" rel="noopener" style="fontSize:14.5px; fontWeight:500; color:#C7D3CE; whiteSpace:nowrap" style-hover="color:#1DD98B">+880 1947-441287</a>
+        </div>
+        </div>
+        <div style="display:flex; alignItems:center; gap:14px">
+          <span style="fontSize:11px; fontWeight:700; letterSpacing:0.2em; textTransform:uppercase; color:#5B6A64">Dhaka · Dubai</span>
+          <span style="width:38px; height:38px; borderRadius:999px; border:1px solid rgba(29,217,139,.3); display:flex; alignItems:center; justifyContent:center; fontSize:12px; fontWeight:700; color:#1DD98B">24/7</span>
+        </div>
+      </div>
+
+      <div style="marginTop:34px; paddingTop:22px; borderTop:1px solid rgba(255,255,255,.06); display:flex; alignItems:center; justifyContent:space-between; gap:28px; flexWrap:wrap">
+        <div style="display:flex; gap:22px; flexWrap:wrap">
+          <a href="#" style="fontSize:10.5px; fontWeight:600; letterSpacing:0.13em; textTransform:uppercase; color:#5B6A64" style-hover="color:#C7D3CE">Terms of service</a>
+          <a href="#" style="fontSize:10.5px; fontWeight:600; letterSpacing:0.13em; textTransform:uppercase; color:#5B6A64" style-hover="color:#C7D3CE">Privacy policy</a>
+          <a href="#" style="fontSize:10.5px; fontWeight:600; letterSpacing:0.13em; textTransform:uppercase; color:#5B6A64" style-hover="color:#C7D3CE">Cookie policy</a>
+        </div>
+        <div style="fontSize:10.5px; fontWeight:600; letterSpacing:0.13em; textTransform:uppercase; color:#4E5C56">Falah Chat © 2026. All rights reserved.</div>
+        <div style="display:flex; alignItems:center; gap:9px">
+          <a href="#" target="_blank" rel="noopener" aria-label="WA" style="width:36px; height:36px; borderRadius:9px; border:1px solid rgba(255,255,255,.09); background:rgba(255,255,255,.03); display:flex; alignItems:center; justifyContent:center; fontSize:11px; fontWeight:700; letterSpacing:0.04em; color:#84938D" style-hover="color:#04100B; background:#1DD98B; border:1px solid #1DD98B">WA</a>
+          <a href="#" target="_blank" rel="noopener" aria-label="IG" style="width:36px; height:36px; borderRadius:9px; border:1px solid rgba(255,255,255,.09); background:rgba(255,255,255,.03); display:flex; alignItems:center; justifyContent:center; fontSize:11px; fontWeight:700; letterSpacing:0.04em; color:#84938D" style-hover="color:#04100B; background:#1DD98B; border:1px solid #1DD98B">IG</a>
+          <a href="#" target="_blank" rel="noopener" aria-label="in" style="width:36px; height:36px; borderRadius:9px; border:1px solid rgba(255,255,255,.09); background:rgba(255,255,255,.03); display:flex; alignItems:center; justifyContent:center; fontSize:11px; fontWeight:700; letterSpacing:0.04em; color:#84938D" style-hover="color:#04100B; background:#1DD98B; border:1px solid #1DD98B">in</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a data-r="wafloat" href="{{ whatsapp }}" target="_blank" rel="noopener" aria-label="Message us on WhatsApp" style="position:fixed; right:22px; bottom:22px; zIndex:60; display:flex; alignItems:center; gap:13px; maxWidth:330px; padding:10px 20px 10px 10px; borderRadius:999px; background:rgba(10,16,13,.86); backdropFilter:blur(20px); WebkitBackdropFilter:blur(20px); border:1px solid rgba(29,217,139,.32); boxShadow:0 26px 60px -26px rgba(0,0,0,.95), 0 0 30px -12px rgba(29,217,139,.35)" style-hover="border:1px solid #1DD98B; background:rgba(12,20,16,.96)">
+    <span style="position:relative; flexShrink:0; width:44px; height:44px; borderRadius:999px; background:#1DD98B; display:flex; alignItems:center; justifyContent:center">
+      <span style="position:absolute; inset:0; borderRadius:999px; border:1px solid #1DD98B; animation:pulseRing 2.8s ease-out infinite"></span>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#04140D" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.7-4.8A8.5 8.5 0 1 1 21 11.5Z"></path>
+        <path d="M8.9 9.1c.3 2.4 3.6 5.7 6 6l1.1-1.4-1.9-1-.9.8c-1-.5-2-1.5-2.5-2.5l.8-.9-1-1.9L8.9 9.1Z" fill="#04140D" stroke="none"></path>
+      </svg>
+    </span>
+    <span data-r="wacopy" style="display:flex; flexDirection:column; gap:3px; minWidth:0">
+      <span style="fontSize:13.5px; fontWeight:700; letterSpacing:-0.01em; color:#F0F5F3">Have a question?</span>
+      <span style="fontSize:12px; lineHeight:1.35; color:#8FCBB2">Send us a message on WhatsApp now</span>
+    </span>
+  </a>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultCurrency&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;BDT&quot;,&quot;USD&quot;,&quot;AED&quot;],&quot;default&quot;:&quot;USD&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Pricing&quot;},&quot;chatAutoplay&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;gridBackdrop&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero&quot;}}">
+const CALENDLY = "https://cal.com/sajidur-rahman/book-your-free-initial-meeting-with-falah-chat";
+
+const WHATSAPP_NUMBER = "8801947441287";
+const WHATSAPP_MESSAGE = "Hi Falah Chat! I have a question about your AI chat agents.";
+const WHATSAPP_LINK = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(WHATSAPP_MESSAGE);
+
+const SCRIPT = [
+  { from: "user", text: "Assalamu alaikum, do you deliver to Dhanmondi? What's the price?" },
+  { from: "agent", text: "Walaikum assalam! Yes — we deliver across Dhaka. Standard delivery is ৳80 and arrives next day. Which item are you looking at?" },
+  { from: "user", text: "Ei product ta ki stock ache? আজ অর্ডার করলে কখন পাবো?" },
+  { from: "agent", text: "হ্যাঁ, স্টকে আছে। আজ রাত ৮টার আগে অর্ডার করলে কাল দুপুরের মধ্যে পৌঁছে যাবে। আপনার নাম আর ফোন নম্বরটা দিলে অর্ডার রেডি করে ফেলি।" }
+];
+
+const LANGS = [
+  { name: "Bangla", channel: "WhatsApp · Dhaka", customer: "রুবিনা আক্তার", draft: "ধন্যবাদ! কনফার্ম করুন।", script: [
+    { from: "user", text: "দাম কত? ডেলিভারি চার্জ আলাদা?" },
+    { from: "agent", text: "প্রোডাক্টটির দাম ৳২,৪৫০ এবং ঢাকার ভেতরে ডেলিভারি ৳৮০।" },
+    { from: "user", text: "আজ অর্ডার করলে কখন পাবো?" },
+    { from: "agent", text: "আজ রাত ৮টার আগে অর্ডার করলে কাল দুপুরের মধ্যেই পৌঁছে যাবে। কনফার্ম করবো?" }
+  ]},
+  { name: "English", channel: "Instagram DM · Global", customer: "Sarah M.", draft: "Yes please, go ahead.", script: [
+    { from: "user", text: "How much is it, and is delivery extra?" },
+    { from: "agent", text: "It's ৳2,450, and delivery inside Dhaka is ৳80." },
+    { from: "user", text: "Can I pay on delivery?" },
+    { from: "agent", text: "Yes — cash on delivery works anywhere in Dhaka. Shall I place the order for you?" }
+  ]},
+  { name: "Banglish", channel: "Messenger · Chattogram", customer: "Tanvir H.", draft: "Ok vai, confirm koren.", script: [
+    { from: "user", text: "Vai price koto? Delivery charge extra naki?" },
+    { from: "agent", text: "Price ৳2,450 vai, ar Dhaka'r vitore delivery ৳80." },
+    { from: "user", text: "Ajke order dile kobe pabo?" },
+    { from: "agent", text: "Ajke raat 8ta'r age order dilen kal'i pouche jabe. Order confirm kore dibo?" }
+  ]},
+  { name: "Arabic", channel: "WhatsApp · Dubai", customer: "أحمد ع.", draft: "نعم، جهّز الطلب.", script: [
+    { from: "user", text: "كم السعر؟ وهل التوصيل مجاني؟" },
+    { from: "agent", text: "السعر ٩٥ درهماً، والتوصيل داخل دبي مجاني." },
+    { from: "user", text: "متى يصل الطلب؟" },
+    { from: "agent", text: "يصل غداً قبل الظهر إن شاء الله. هل أجهّز الطلب لك؟" }
+  ]},
+  { name: "Hindi", channel: "Instagram DM · Delhi", customer: "Priya S.", draft: "हाँ, कर दीजिए।", script: [
+    { from: "user", text: "इसकी कीमत क्या है? डिलीवरी कितने दिन में?" },
+    { from: "agent", text: "इसकी कीमत ₹1,900 है और डिलीवरी 2 दिन में हो जाती है।" },
+    { from: "user", text: "क्या कोई गारंटी है?" },
+    { from: "agent", text: "जी, 6 महीने की वारंटी मिलती है। ऑर्डर कन्फर्म कर दूँ?" }
+  ]}
+];
+
+const PRICES = {
+  BDT: [["৳15,000", "৳8,000"], ["৳28,000", "৳15,000"], ["৳45,000", "৳25,000"]],
+  USD: [["$150", "$80"], ["$280", "$150"], ["$450", "$250"]],
+  AED: [["AED 550", "AED 290"], ["AED 1,000", "AED 550"], ["AED 1,650", "AED 900"]]
+};
+
+const PLANS = [
+  { name: "Starter Plan", channels: "WhatsApp only", blurb: "Perfect for shops and clinics that get most of their enquiries on WhatsApp and want them answered instantly.", popular: false, features: [
+    "An AI agent that answers your WhatsApp chats",
+    "Asks which branch or area the customer is in",
+    "Your team can take over any chat instantly",
+    "Every lead saved in a dashboard, exportable as CSV",
+    "Replies in Bangla, English, Arabic, Hindi or Banglish"
+  ]},
+  { name: "Growth Plan", channels: "WhatsApp + Instagram DM", blurb: "Best value for growing businesses selling across WhatsApp and Instagram — the most cost-effective way to scale.", popular: true, features: [
+    "Everything in Starter",
+    "Instagram DMs answered the same way",
+    "One inbox for both channels, no tab switching",
+    "Priority support when you need a change fast"
+  ]},
+  { name: "All Channels", channels: "WhatsApp + Instagram + Messenger + Website", blurb: "For teams handling every channel at once, including a custom chatbot built into your own website.", popular: false, features: [
+    "Everything in Growth",
+    "Messenger conversations covered too",
+    "A custom chatbot built into your own website",
+    "Appointment booking straight into your calendar",
+    "All four channels in a single dashboard",
+    "A dedicated onboarding call with our team"
+  ]}
+];
+
+
+const STEPS = [
+  { num: "01", title: "Connect your channels", desc: "You approve access to WhatsApp, Instagram or Messenger — or we drop one line of code on your website. No new app for your team to learn.",
+    pill: "Connect WhatsApp", cardTitle: "Channels",
+    rows: [["WA","WhatsApp Business","Connected","#1DD98B"],["IG","Instagram Direct","Connected","#1DD98B"],["MS","Messenger inbox","Connected","#1DD98B"],["WEB","Website chatbot","Pending","#76857F"]] },
+  { num: "02", title: "We train the AI on your business", desc: "Products, prices, branches, delivery rules, tone of voice. We test it with real questions before it goes near a customer.",
+    pill: "Add your price list", cardTitle: "Training sources",
+    rows: [["PD","Product catalogue","Learned","#1DD98B"],["PR","Price list 2026","Learned","#1DD98B"],["PO","Delivery & refund policy","Learned","#1DD98B"],["TN","Tone of voice samples","In review","#76857F"]] },
+  { num: "03", title: "Go live and capture leads", desc: "The agent starts answering. You watch leads land in the dashboard and step in whenever a deal is worth closing yourself.",
+    pill: "New lead captured", cardTitle: "Lead inbox",
+    rows: [["WA","Rubina Akter","New","#1DD98B"],["IG","Sarah M.","Qualified","#1DD98B"],["MS","Tanvir H.","New","#1DD98B"],["WEB","Imran Chowdhury","Booked","#1DD98B"]] }
+];
+
+const AGENTS = [
+  { slug: "whatsapp", name: "WhatsApp Agent", mark: "WA", tag: "WhatsApp Business API",
+    headA: "The channel your customers ", headB: "already message you on", headC: " — answered in seconds.",
+    intro: "Most enquiries in Bangladesh start on WhatsApp, and most of them arrive after your shop closes. The WhatsApp Agent replies instantly on your verified business number, answers the questions your team retypes every day, and saves the customer as a lead before they cool off.",
+    stats: [["< 6s", "average first reply"], ["24/7", "including holidays"], ["5", "languages handled"]],
+    benefits: [
+      { t: "Instant replies on your own number", d: "Runs on the official WhatsApp Business API with your verified business profile — customers see your name, not a third-party bot." },
+      { t: "Answers the same ten questions", d: "Price, stock, delivery charge, timeline, branch address, payment options. Your team stops retyping and starts closing." },
+      { t: "Bangla, English and Banglish", d: "It replies in the language and script the customer wrote in, including mixed Banglish, so nothing feels translated." },
+      { t: "Confirms orders and cash on delivery", d: "Collects the address, confirms COD, and repeats the order back so there is no dispute at the door." },
+      { t: "Hands over the moment it matters", d: "When a customer is ready to buy or asks something unusual, your team takes over the same chat in one tap." },
+      { t: "Every chat becomes a lead", d: "Name, number, area, product interest and next step saved to your dashboard and exportable as CSV." }
+    ],
+    handles: ["Price and package questions", "Stock and availability checks", "Delivery charge and timeline", "Branch address and opening hours", "Order status follow-ups", "Cash-on-delivery confirmation", "Appointment and site-visit booking", "Escalation to a human agent"] },
+
+  { slug: "messenger", name: "Messenger Agent", mark: "MS", tag: "Facebook Page inbox",
+    headA: "Turn your Page inbox from a ", headB: "backlog into a pipeline", headC: ".",
+    intro: "Facebook ads bring the enquiries; the Page inbox loses them. The Messenger Agent answers every message and ad reply the moment it lands, keeps your response rate green, and pulls comment threads into a private conversation before a competitor does it for you.",
+    stats: [["100%", "of messages answered"], ["Instant", "ad-enquiry replies"], ["0", "unread request folder"]],
+    benefits: [
+      { t: "Answers ad enquiries instantly", d: "Every enquiry from a boosted post gets a real answer while the customer is still scrolling." },
+      { t: "Comment to DM, automatically", d: "Someone asks the price under your post — the agent replies publicly and opens a private chat to close it." },
+      { t: "Keeps your response badge green", d: "Your Page keeps a Very responsive badge instead of a typically-replies-in-a-day warning." },
+      { t: "Clears the message request folder", d: "Messages from people who never messaged you before get seen and answered instead of buried." },
+      { t: "Knows your offers and policies", d: "Trained on your current campaign, prices, delivery rules and refund policy so answers stay accurate." },
+      { t: "One inbox with every other channel", d: "Messenger leads sit next to WhatsApp, Instagram and website leads in the same dashboard." }
+    ],
+    handles: ["Replies to ad and boosted-post enquiries", "Public comment replies", "Comment-to-DM handoff", "Price and offer questions", "Availability and variants", "Location and delivery area", "Lead capture with contact details", "Handover to your team"] },
+
+  { slug: "instagram", name: "Instagram Agent", mark: "IG", tag: "Instagram Direct",
+    headA: "Every DM and story reply, ", headB: "answered like a real person", headC: ".",
+    intro: "Instagram is where people browse and ask, but DMs and story replies pile up faster than any team can clear them. The Instagram Agent answers in your brand voice, follows up on story reactions, and turns casual curiosity into a saved lead with a number attached.",
+    stats: [["Seconds", "to first reply"], ["DMs + stories", "both covered"], ["Brand voice", "trained on your feed"]],
+    benefits: [
+      { t: "Answers DMs around the clock", d: "The late-night how-much question gets a real answer at 1am, not at 11am the next morning." },
+      { t: "Story replies and reactions", d: "A reaction to your story becomes a conversation instead of a notification nobody opens." },
+      { t: "Catches message requests", d: "First-time customers land in the requests folder — the agent finds them and replies." },
+      { t: "Speaks in your brand voice", d: "Tone, phrasing and level of formality trained on how you already write, so it never sounds generic." },
+      { t: "Sends the right product details", d: "Sizes, variants, price, shipping and the link to buy — pulled from your own catalogue." },
+      { t: "Saves every enquiry as a lead", d: "Handle, name, product interest and next step recorded and ready to follow up." }
+    ],
+    handles: ["Direct message enquiries", "Story reply follow-ups", "Message request folder", "Price and product details", "Sizes, colours and variants", "Shipping and delivery questions", "Link to purchase or booking", "Handover to your team"] },
+
+  { slug: "website", name: "Custom Website Chatbot", mark: "WEB", tag: "Custom build for your site",
+    headA: "A chatbot built for your website — ", headB: "not a plugin", headC: " bolted onto it.",
+    intro: "Most website visitors leave without contacting anyone. The custom chatbot is built and trained on your business, styled to match your site, and installed with one line of code. It holds a genuine conversation, answers from your own pages and documents, and books the appointment before the visitor closes the tab.",
+    stats: [["1 line", "of code to install"], ["Your brand", "colours and voice"], ["Booked", "straight to your calendar"]],
+    benefits: [
+      { t: "Conversations like a human", d: "It understands what visitors actually mean, asks sensible follow-up questions and keeps context — no menu of buttons." },
+      { t: "Books appointments end to end", d: "Checks your live calendar, offers real slots, confirms the booking and sends the reminder without anyone stepping in." },
+      { t: "Trained on your own content", d: "Service pages, price lists, PDFs and policies. It answers from your material, and says so when it does not know." },
+      { t: "Styled to your brand", d: "Colours, typography, avatar, greeting and position all match your site — it looks built in, because it is." },
+      { t: "Qualifies before it hands over", d: "Budget, timeline, service needed and location captured, so your team only picks up conversations worth their time." },
+      { t: "One line of code, any platform", d: "WordPress, Shopify, Webflow, Framer or custom — paste one snippet and it is live, mobile included." }
+    ],
+    handles: ["Explaining your services", "Pricing and quote questions", "Appointment and demo booking", "Calendar reminders and reschedules", "Qualifying budget and timeline", "Routing to the right team", "Out-of-hours coverage", "Lead capture with full transcript"] }
+];
+
+const FAQS = [
+  { q: "Can you put a chatbot on our own website?", a: "Yes. We build a custom chatbot styled to your brand and install it with one line of code. It holds a real conversation, answers from your own pages and documents, books appointments into your calendar, and saves every visitor as a lead in the same dashboard as WhatsApp, Instagram and Messenger." },
+  { q: "How long until it's live?", a: "Usually 5 to 10 working days. Most of that time is us learning your products, prices and policies well enough that the agent sounds like your business, not a bot." },
+  { q: "Do we need any technical knowledge?", a: "No. You approve access to your accounts, answer our questions about how you sell, and we handle the rest. Your team keeps using the apps they already use." },
+  { q: "Where does our customer data live?", a: "Chats and leads stay in your own accounts and your dashboard. We only access what's needed to run the agent, we don't sell or share data, and we can delete everything on request." },
+  { q: "Can we cancel?", a: "Yes — monthly, with 30 days' notice. There's no lock-in contract. You keep your accounts and can export your leads before you go." },
+  { q: "What if we need something custom?", a: "Tell us on the consultation call. Order lookups, catalogue sync, CRM handoff and similar work are quoted separately so you only pay for what you actually need." }
+];
+
+const CHANNELS = [
+  { key: "WhatsApp", mark: "WA", note: "Business API", color: "#1DD98B" },
+  { key: "Instagram", mark: "IG", note: "Direct messages", color: "#1DD98B" },
+  { key: "Messenger", mark: "MS", note: "Page inbox", color: "#1DD98B" },
+  { key: "Website", mark: "WEB", note: "Custom site chatbot", color: "#1DD98B" }
+];
+
+const LEADS = [
+  { name: "Rubina Akter", channel: "WhatsApp", lang: "Bangla", snippet: "আজ অর্ডার করলে কখন পাবো?", status: "New lead", hot: true },
+  { name: "Sarah M.", channel: "Instagram", lang: "English", snippet: "Can I pay on delivery?", status: "Qualified", hot: false },
+  { name: "Tanvir H.", channel: "Messenger", lang: "Banglish", snippet: "Ajke order dile kobe pabo?", status: "New lead", hot: true },
+  { name: "أحمد ع.", channel: "WhatsApp", lang: "Arabic", snippet: "متى يصل الطلب؟", status: "Handed to sales", hot: false },
+  { name: "Priya S.", channel: "Instagram", lang: "Hindi", snippet: "क्या कोई गारंटी है?", status: "Qualified", hot: false },
+  { name: "Imran Chowdhury", channel: "Website", lang: "English", snippet: "Booked a site visit for Thursday 4pm.", status: "Appointment booked", hot: true }
+];
+
+const INDUSTRIES = [
+  ["restaurants", "Restaurants & Cafés"],
+  ["clinics", "Clinics & Dental"],
+  ["realestate", "Real Estate"],
+  ["salons", "Beauty & Salons"],
+  ["fitness", "Fitness & Gyms"],
+  ["ecommerce", "E-commerce & Retail"],
+  ["travel", "Travel & Tours"],
+  ["automotive", "Automotive"],
+  ["education", "Education & Coaching"],
+  ["homeservices", "Home Services"]
+];
+
+class Component extends DCLogic {
+  state = { page: "home", agent: "whatsapp", step: 0, visible: 0, typing: false, lang: 1, currency: null, openFaq: 0,
+            langVisible: 0, langTyping: false, swapping: false, swapKey: 0, inbox: "All",
+            industry: 0, railPct: 0, railFrac: 0.3, menu: false };
+
+  get rail() { return document.getElementById("ind-rail"); }
+
+  measureRail = () => {
+    const el = this.rail, bar = document.getElementById("ind-bar");
+    if (!el || !bar) return;
+    const max = el.scrollWidth - el.clientWidth;
+    const frac = el.scrollWidth > 0 ? Math.min(1, el.clientWidth / el.scrollWidth) : 1;
+    const pct = max > 0 ? el.scrollLeft / max : 0;
+    bar.style.width = (frac * 100).toFixed(2) + "%";
+    bar.style.left = (pct * (1 - frac) * 100).toFixed(2) + "%";
+  };
+
+  setIndustry = (i) => {
+    const el = this.rail;
+    if (!el) return;
+    Array.from(el.querySelectorAll('[data-ind="card"]')).forEach((card, n) => {
+      const on = n === i;
+      card.style.width = on ? "300px" : "236px";
+      card.style.borderColor = on ? "rgba(29,217,139,.55)" : "rgba(255,255,255,.08)";
+      const chip = card.querySelector('[data-ind="chip"]');
+      const arrow = card.querySelector('[data-ind="arrow"]');
+      if (chip) { chip.style.background = on ? "#1DD98B" : "rgba(7,11,10,.62)"; chip.style.color = on ? "#04140D" : "#DFE8E4"; }
+      if (arrow) {
+        arrow.style.background = on ? "#1DD98B" : "rgba(7,11,10,.55)";
+        arrow.style.color = on ? "#04140D" : "#DFE8E4";
+        arrow.style.borderColor = on ? "#1DD98B" : "rgba(255,255,255,.16)";
+      }
+    });
+  };
+
+  nudgeRail = (dir) => {
+    const el = this.rail;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    const from = el.scrollLeft;
+    const to = Math.max(0, Math.min(max, from + dir * Math.round(el.clientWidth * 0.7)));
+    const t0 = performance.now(), dur = 420;
+    const tick = (t) => {
+      const k = Math.min(1, (t - t0) / dur);
+      const e = 1 - Math.pow(1 - k, 3);
+      el.scrollLeft = from + (to - from) * e;
+      this.measureRail();
+      if (k < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  bindRail = () => {
+    const el = this.rail;
+    if (!el) return;
+    if (!el.__bound) { el.__bound = true; el.addEventListener("scroll", this.measureRail, { passive: true }); }
+    Array.from(el.querySelectorAll('[data-ind="card"]')).forEach((card, n) => {
+      if (card.__bound) return;
+      card.__bound = true;
+      card.addEventListener("mouseenter", () => this.setIndustry(n));
+      card.addEventListener("focus", () => this.setIndustry(n));
+      card.addEventListener("click", () => this.setIndustry(n));
+    });
+    this.setIndustry(0);
+    this.measureRail();
+  };
+
+  get reduced() { return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches); }
+
+  componentDidMount() {
+    this.timers = [];
+    this.langTimers = [];
+    setTimeout(this.bindRail, 60);
+    setTimeout(this.bindRail, 600);
+    this.railBind = setInterval(this.bindRail, 1500);
+    window.addEventListener("resize", this.measureRail);
+    if (this.reduced || this.props.chatAutoplay === false) {
+      this.setState({ visible: SCRIPT.length, langVisible: LANGS[this.state.lang].script.length });
+      return;
+    }
+    this.step(0);
+    this.playLang(this.state.lang);
+  }
+  componentWillUnmount() {
+    (this.timers || []).forEach(clearTimeout);
+    (this.langTimers || []).forEach(clearTimeout);
+  }
+
+  pickLang(i) {
+    (this.langTimers || []).forEach(clearTimeout);
+    this.langTimers = [];
+    if (this.reduced) {
+      this.setState({ lang: i, langVisible: LANGS[i].script.length, langTyping: false, swapping: false });
+      return;
+    }
+    this.setState(s => ({ lang: i, langVisible: 0, langTyping: false, swapping: true, swapKey: s.swapKey + 1 }));
+    this.langTimers.push(setTimeout(() => this.setState({ swapping: false }), 360));
+    this.langTimers.push(setTimeout(() => this.playLang(i), 520));
+  }
+
+  playLang(li, i) {
+    const script = LANGS[li].script;
+    const idx = i || 0;
+    if (idx >= script.length) return;
+    const next = script[idx];
+    const showIt = () => {
+      if (this.state.lang !== li) return;
+      this.setState({ langVisible: idx + 1, langTyping: false });
+      this.langTimers.push(setTimeout(() => this.playLang(li, idx + 1), 800));
+    };
+    if (next.from === "agent") {
+      this.setState({ langTyping: true });
+      this.langTimers.push(setTimeout(showIt, 1200));
+    } else {
+      this.langTimers.push(setTimeout(showIt, 450));
+    }
+  }
+
+  step(i) {
+    this.timers = this.timers || [];
+    if (i >= SCRIPT.length) {
+      this.timers.push(setTimeout(() => { this.setState({ visible: 0 }); this.step(0); }, 6000));
+      return;
+    }
+    const next = SCRIPT[i];
+    const showIt = () => {
+      this.setState({ visible: i + 1, typing: false });
+      this.timers.push(setTimeout(() => this.step(i + 1), 900));
+    };
+    if (next.from === "agent") {
+      this.setState({ typing: true });
+      this.timers.push(setTimeout(showIt, 1400));
+    } else {
+      this.timers.push(setTimeout(showIt, 500));
+    }
+  }
+
+  renderVals() {
+    const s = this.state;
+    const cur = s.currency || this.props.defaultCurrency || "BDT";
+    const prices = PRICES[cur] || PRICES.BDT;
+    const lang = LANGS[s.lang];
+
+    return {
+      calendly: CALENDLY,
+      whatsapp: WHATSAPP_LINK,
+      menuOpen: !!s.menu,
+      menuClosed: !s.menu,
+      toggleMenu: () => this.setState(p => ({ menu: !p.menu })),
+      closeMenu: () => this.setState({ menu: false }),
+      railPrev: () => this.nudgeRail(-1),
+      railNext: () => this.nudgeRail(1),
+      railWidth: Math.round(s.railFrac * 100) + "%",
+      railLeft: Math.round(s.railPct * (1 - s.railFrac) * 100) + "%",
+      industries: INDUSTRIES.map(([slug, name], i) => {
+        const on = i === s.industry;
+        return {
+          slug, name,
+          hover: () => this.setState({ industry: i }),
+          w: on ? "300px" : "236px",
+          border: on ? "rgba(29,217,139,.55)" : "rgba(255,255,255,.08)",
+          chipBg: on ? "#1DD98B" : "rgba(7,11,10,.62)",
+          chipFg: on ? "#04140D" : "#DFE8E4",
+          arrowBg: on ? "#1DD98B" : "rgba(7,11,10,.55)",
+          arrowFg: on ? "#04140D" : "#DFE8E4",
+          arrowBorder: on ? "#1DD98B" : "rgba(255,255,255,.16)"
+        };
+      }),
+      gridBackdrop: this.props.gridBackdrop !== false,
+      isHome: s.page === "home",
+      isServices: s.page === "services",
+      isContact: s.page === "contact",
+      isAgent: s.page === "agent",
+      steps: STEPS.map((st, i) => ({
+        num: st.num, title: st.title, desc: st.desc,
+        pick: () => this.setState({ step: i }),
+        rail: i === s.step ? "#1DD98B" : "rgba(255,255,255,.10)",
+        titleColor: i === s.step ? "#F0F5F3" : "#B9C7C1",
+        tileBg: i === s.step ? "#1DD98B" : "rgba(255,255,255,.04)",
+        tileBorder: i === s.step ? "#1DD98B" : "rgba(255,255,255,.12)",
+        tileColor: i === s.step ? "#04140D" : "#84938D"
+      })),
+      stepPill: STEPS[s.step].pill,
+      stepCardTitle: STEPS[s.step].cardTitle,
+      stepCardRows: STEPS[s.step].rows.map(r => ({ mark: r[0], label: r[1], tag: r[2], tagColor: r[3] })),
+      agent: (AGENTS.find(a => a.slug === s.agent) || AGENTS[0]),
+      agentBenefits: (AGENTS.find(a => a.slug === s.agent) || AGENTS[0]).benefits.map((b, i) => ({ t: b.t, d: b.d, num: String(i + 1).padStart(2, "0") + "." })),
+      agentStats: (AGENTS.find(a => a.slug === s.agent) || AGENTS[0]).stats.map(x => ({ big: x[0], small: x[1] })),
+      agentHandles: (AGENTS.find(a => a.slug === s.agent) || AGENTS[0]).handles,
+      agentTabs: AGENTS.map(a => ({
+        name: a.name, mark: a.mark,
+        pick: () => { this.setState({ menu: false, page: "agent", agent: a.slug }); window.scrollTo(0, 0); },
+        bg: s.agent === a.slug && s.page === "agent" ? "#1DD98B" : "transparent",
+        fg: s.agent === a.slug && s.page === "agent" ? "#04140D" : "#93A29C",
+        border: s.agent === a.slug && s.page === "agent" ? "#1DD98B" : "rgba(255,255,255,.12)"
+      })),
+      goAgentWhatsApp: () => { this.setState({ menu: false, page: "agent", agent: "whatsapp" }); window.scrollTo(0, 0); },
+      goAgentMessenger: () => { this.setState({ menu: false, page: "agent", agent: "messenger" }); window.scrollTo(0, 0); },
+      goAgentInstagram: () => { this.setState({ menu: false, page: "agent", agent: "instagram" }); window.scrollTo(0, 0); },
+      goAgentWebsite: () => { this.setState({ menu: false, page: "agent", agent: "website" }); window.scrollTo(0, 0); },
+      goHome: () => { this.setState({ menu: false, page: "home" }); window.scrollTo(0, 0); },
+      goServices: () => { this.setState({ menu: false, page: "services" }); window.scrollTo(0, 0); },
+      goContact: () => { this.setState({ menu: false, page: "contact" }); window.scrollTo(0, 0); },
+
+      channelLabel: "WhatsApp Business",
+      typing: s.typing,
+      leadCaptured: s.visible >= SCRIPT.length,
+      messages: SCRIPT.slice(0, s.visible).map((m, i) => ({
+        text: m.text, isUser: m.from === "user", isAgent: m.from === "agent", key: i
+      })),
+
+      languages: LANGS.map((l, i) => ({
+        name: l.name,
+        pick: () => this.pickLang(i),
+        bg: i === s.lang ? "#1DD98B" : "transparent",
+        fg: i === s.lang ? "#04140D" : "#B9C7C1",
+        border: i === s.lang ? "#1DD98B" : "rgba(255,255,255,.14)"
+      })),
+      langName: lang.name,
+      langChannel: lang.channel,
+      langCustomer: lang.customer,
+      langInitial: lang.customer.slice(0, 1),
+      langDraft: lang.draft,
+      langSwapping: s.swapping,
+      langReady: !s.swapping,
+      langTyping: s.langTyping,
+      langMsgs: lang.script.slice(0, s.langVisible).map((m, i) => ({
+        text: m.text, isUser: m.from === "user", isAgent: m.from === "agent", key: i
+      })),
+
+      channels: CHANNELS.map((c, i) => ({
+        key: c.key, mark: c.mark, note: c.note,
+        dim: (s.inbox === "All" || s.inbox === c.key) ? 1 : 0.42,
+        pick: () => this.setState({ inbox: s.inbox === c.key ? "All" : c.key }),
+        drift: i % 2 === 1 ? "driftB 8s ease-in-out infinite" : "driftA 7s ease-in-out infinite"
+      })),
+      inboxTabs: ["All", "WhatsApp", "Instagram", "Messenger", "Website"].map(t => ({
+        label: t === "All" ? "All channels" : t,
+        pick: () => this.setState({ inbox: t }),
+        bg: s.inbox === t ? "#1DD98B" : "transparent",
+        fg: s.inbox === t ? "#04140D" : "#84938D",
+        border: s.inbox === t ? "#1DD98B" : "rgba(255,255,255,.12)"
+      })),
+      leads: LEADS.filter(l => s.inbox === "All" || l.channel === s.inbox).map((l, i) => ({
+        name: l.name, channel: l.channel, lang: l.lang, snippet: l.snippet, status: l.status,
+        hot: l.hot, cool: !l.hot,
+        mark: (CHANNELS.find(c => c.key === l.channel) || {}).mark || "??",
+        delay: (i * 0.07).toFixed(2) + "s"
+      })),
+      leadCount: LEADS.filter(l => s.inbox === "All" || l.channel === s.inbox).length + " open",
+
+      currencies: ["BDT", "USD", "AED"].map(code => ({
+        code,
+        pick: () => this.setState({ currency: code }),
+        bg: code === cur ? "#1DD98B" : "transparent",
+        fg: code === cur ? "#04140D" : "#93A29C"
+      })),
+      plans: PLANS.map((p, i) => ({
+        name: p.name, channels: p.channels, blurb: p.blurb, popular: p.popular, features: p.features,
+        setup: prices[i][0], monthly: prices[i][1],
+        cardBg: p.popular ? "#0C130F" : "#0A0E0C",
+        borderColor: p.popular ? "rgba(29,217,139,.55)" : "rgba(29,217,139,.20)",
+        glow: p.popular ? "popGlow 2.8s ease-in-out infinite" : "none"
+      })),
+      faqs: FAQS.map((f, i) => ({
+        q: f.q, a: f.a, open: s.openFaq === i, sign: s.openFaq === i ? "–" : "+",
+        toggle: () => this.setState({ openFaq: s.openFaq === i ? -1 : i })
+      }))
+    };
+  }
+}
+
+</script>
+</body>
+</html>
