@@ -91,7 +91,7 @@ export default function Industries() {
                   )}
                 >
                   <img
-                    src={"/images/industries/" + slug + ".jpg"}
+                    src={"/images/industries/" + slug + ".webp"}
                     alt={name + " businesses using an AI chat agent"}
                     loading="lazy"
                     onError={(e) => {
