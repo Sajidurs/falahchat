@@ -39,8 +39,8 @@ function HandsOff() {
         >
           <div data-r="night" style={css("position:relative; width:100%; aspectRatio:16 / 8")}>
             <img
-              src="/images/night-desk.jpg"
-              alt="Business owner asleep at his desk while the AI agent answers enquiries"
+              src="/images/go-do-your-other-things.webp"
+              alt="Business owner doing other tasks while AI agent runs the front desk"
               loading="lazy"
               style={css("position:absolute; inset:0; width:100%; height:100%; objectFit:cover")}
             />

@@ -30,8 +30,8 @@ export default function HowItWorks() {
             )}
           >
             <img
-              src="/images/owner.jpg"
-              alt="Business owner reviewing leads captured by the AI agent"
+              src="/images/how-it-works.webp"
+              alt="How Falah Chat works for business owners"
               loading="lazy"
               onError={(e) => {
                 e.currentTarget.style.display = "none";
